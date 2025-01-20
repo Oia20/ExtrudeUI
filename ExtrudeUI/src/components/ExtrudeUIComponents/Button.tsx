@@ -13,14 +13,17 @@ interface ExtrudeButtonProps {
   
   // Basic styling
   color?: string;
-  size?: 'small' | 'medium' | 'large';
+  size?: 'small' | 'medium' | 'large' | 'xlarge';
   shape?: 'rounded' | 'square' | 'pill';
+  font?: string;
   
+
   // 3D properties
   depth?: number;
   hover?: boolean;
   textColor?: string;
   opacity?: number;
+
 
   // Material properties
   metalness?: number;
@@ -59,9 +62,13 @@ const ExtrudeButtonInner = ({
   clearcoat = 1,
   clearcoatRoughness = 0.1,
   animation = 'spin',
+  font = 'https://db.onlinewebfonts.com/t/1dc8ecd8056a5ea7aa7de1db42b5b639.ttf',
   shadowColor = 'red',
   onHover,
   gradient,
+
+
+
 }: ExtrudeButtonProps & { onHover: (hovered: boolean) => void }) => {
   const [hovered, setHovered] = useState(false);
   const [rotationX, setRotationX] = useState(0);
@@ -70,19 +77,27 @@ const ExtrudeButtonInner = ({
   
   // Map size to dimensions with dynamic width calculation
   const dimensions = useMemo(() => {
-    const getBaseWidth = (size: 'small' | 'medium' | 'large') => {
+    const getBaseWidth = (size: 'small' | 'medium' | 'large' | 'xlarge') => {
       const baseDimensions = {
-        small: { width: 1.5, height: 0.5, fontSize: 0.15 },
-        medium: { width: 2, height: 0.7, fontSize: 0.2 },
-        large: { width: 2.5, height: 0.9, fontSize: 0.25 },
+        small: { width: 2, height: 0.6, fontSize: 0.2 },
+        medium: { width: 3, height: 0.8, fontSize: 0.25 },
+        large: { width: 4, height: 1.1, fontSize: 0.35 },
+        xlarge: { width: 5.5, height: 1.4, fontSize: 0.45 },
       }[size];
 
-      // Calculate width based on text length
+      // Calculate width based on text length with size-specific scaling
       const textLength = text.length;
-      const charWidth = baseDimensions.fontSize * 0.7; // Approximate character width
+      const charWidth = baseDimensions.fontSize * 0.6;
+      const sizeMultiplier = {
+        small: 0.8,
+        medium: 1,
+        large: 1.2,
+        xlarge: 1.5
+      }[size];
+      
       const calculatedWidth = Math.max(
-        baseDimensions.width, // Minimum width
-        textLength * charWidth * 1.2 // Text width + padding
+        baseDimensions.width,
+        textLength * charWidth * sizeMultiplier
       );
 
       return {
@@ -200,9 +215,9 @@ const ExtrudeButtonInner = ({
       >
         <Float
           speed={1.5}
-          rotationIntensity={0.3}
+          rotationIntensity={0.5}
           floatIntensity={0.4}
-          floatingRange={[-0.1, 0.1]}
+          floatingRange={[-0.3, 0.3]}
         >
           <RoundedBox 
             args={[dimensions.width, dimensions.height, depth]} 
@@ -229,9 +244,11 @@ const ExtrudeButtonInner = ({
             color={textColor}
             anchorX="center"
             anchorY="middle"
+            font={font}
           >
             {text}
           </Text>
+
         </Float>
 
       </animated.mesh>
@@ -242,38 +259,67 @@ const ExtrudeButtonInner = ({
 export const ExtrudeButton = (props: ExtrudeButtonProps) => {
   const [isHovered, setIsHovered] = useState(false);
 
+  // Define container sizes based on button size
+  const containerDimensions = useMemo(() => {
+    const sizes = {
+      small: { height: '100px' },
+      medium: { height:  '150px' },
+      large: { height: '200px' },
+      xlarge: { height: '300px' }
+    };
+    return sizes[props.size || 'medium'];
+  }, [props.size]);
+
+  const cameraPosition = useMemo(() => {
+    const positions = {
+      small: 3,
+      medium: 4,
+      large: 5.5,
+      xlarge: 7
+    };
+    return positions[props.size || 'medium'];
+  }, [props.size]);
+
   return (
     <div 
       style={{ 
         position: 'relative',
-        cursor: isHovered && !props.disabled ? 'pointer' : 'default'
+        cursor: isHovered && !props.disabled ? 'pointer' : 'default',
+        width: '100%',
+        height: containerDimensions.height,
       }}
     >
       <Suspense fallback={<div></div>}>
-      <Canvas 
-        camera={{ position: [0, 0, 2.5], fov: 40 }}
-        style={{ 
-          background: 'transparent',
-          pointerEvents: 'auto',
-        }}
-        shadows
-      >
-        <Stage
-          environment="city"
-          intensity={0.5}
-          shadows={{
-            type: 'contact',
-            opacity: props.shadowOpacity || 0.7,
-            blur: 3,
-            far: 3,
-            color: props.shadowColor || '#000000',
-            amount: 10
+        <Canvas 
+          camera={{ 
+            position: [0, 0, cameraPosition], 
+            fov: 35,
           }}
+          style={{ 
+            background: 'transparent',
+            pointerEvents: 'auto',
+            width: '100%',
+            height: '100%',
+          }}
+          shadows
         >
-          <ExtrudeButtonInner {...props} onHover={setIsHovered} />
-        </Stage>
+          <Stage
+            environment="city"
+            intensity={0.5}
+            position={[0, 0, props.size === 'xlarge' ? -1 : 0]}
+            shadows={{
+              type: 'contact',
+              opacity: props.shadowOpacity || 0.7,
+              blur: 300,
+              far: 100,
+              color: props.shadowColor || '#000000',
+              amount: 100
 
-      </Canvas>
+            }}
+          >
+            <ExtrudeButtonInner {...props} onHover={setIsHovered} />
+          </Stage>
+        </Canvas>
       </Suspense>
     </div>
   );
