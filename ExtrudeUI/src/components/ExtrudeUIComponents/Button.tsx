@@ -1,10 +1,11 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Text, RoundedBox } from '@react-three/drei';
 import { animated, useSpring } from '@react-spring/three';
 import { Float, Stage } from '@react-three/drei';
 import * as THREE from 'three';
 import { Suspense } from 'react';
+
 interface ExtrudeButtonProps {
   // Core props
   text?: string;
@@ -75,24 +76,23 @@ const ExtrudeButtonInner = ({
 
   const [rotationY, setRotationY] = useState(0);
   
-  // Map size to dimensions with dynamic width calculation
+  // Update dimensions calculation with larger base sizes
   const dimensions = useMemo(() => {
     const getBaseWidth = (size: 'small' | 'medium' | 'large' | 'xlarge') => {
       const baseDimensions = {
-        small: { width: 2, height: 0.6, fontSize: 0.2 },
-        medium: { width: 3, height: 0.8, fontSize: 0.25 },
-        large: { width: 4, height: 1.1, fontSize: 0.35 },
-        xlarge: { width: 5.5, height: 1.4, fontSize: 0.45 },
+        small: { width: 8.0, height: 2.4, fontSize: 0.8 },     // Massive increase from 4.5/1.4/0.45
+        medium: { width: 10.0, height: 3.0, fontSize: 1.0 },   // Massive increase from 6.0/1.8/0.6
+        large: { width: 12.0, height: 3.6, fontSize: 1.2 },    // Massive increase from 7.5/2.2/0.75
+        xlarge: { width: 14.0, height: 4.2, fontSize: 1.4 },   // Massive increase from 9.0/2.6/0.9
       }[size];
 
-      // Calculate width based on text length with size-specific scaling
       const textLength = text.length;
       const charWidth = baseDimensions.fontSize * 0.6;
       const sizeMultiplier = {
         small: 0.8,
-        medium: 1,
+        medium: 1.0,
         large: 1.2,
-        xlarge: 1.5
+        xlarge: 1.4
       }[size];
       
       const calculatedWidth = Math.max(
@@ -135,7 +135,7 @@ const ExtrudeButtonInner = ({
         return dimensions.height / 2;  // Half height for pill shape
       case 'rounded':
       default:
-        return 0.15;  // Original rounded corners
+        return 0.5;  // Original rounded corners
     }
   };
 
@@ -214,9 +214,9 @@ const ExtrudeButtonInner = ({
         receiveShadow
       >
         <Float
-          speed={1.5}
-          rotationIntensity={0.5}
-          floatIntensity={0.4}
+          speed={2}
+          rotationIntensity={1}
+          floatIntensity={1}
           floatingRange={[-0.3, 0.3]}
         >
           <RoundedBox 
@@ -224,6 +224,7 @@ const ExtrudeButtonInner = ({
             radius={getRadius()}
             castShadow
             receiveShadow
+
           >
             <animated.meshPhysicalMaterial 
               color={gradient ? '#ffffff' : buttonColor}
@@ -248,7 +249,6 @@ const ExtrudeButtonInner = ({
           >
             {text}
           </Text>
-
         </Float>
 
       </animated.mesh>
@@ -258,27 +258,58 @@ const ExtrudeButtonInner = ({
 
 export const ExtrudeButton = (props: ExtrudeButtonProps) => {
   const [isHovered, setIsHovered] = useState(false);
+  const [viewportWidth, setViewportWidth] = useState(0);
 
-  // Define container sizes based on button size
+  // Add resize listener with SSR check
+  useEffect(() => {
+    // Set initial width after component mounts
+    setViewportWidth(window.innerWidth);
+    
+    const handleResize = () => setViewportWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   const containerDimensions = useMemo(() => {
     const sizes = {
-      small: { height: '100px' },
-      medium: { height:  '150px' },
-      large: { height: '200px' },
-      xlarge: { height: '300px' }
+      small: { height: 'clamp(200px, 30vh, 300px)' },     // Massive increase from 120px/20vh/200px
+      medium: { height: 'clamp(250px, 40vh, 400px)' },    // Massive increase from 150px/25vh/250px
+      large: { height: 'clamp(300px, 50vh, 500px)' },     // Massive increase from 180px/30vh/300px
+      xlarge: { height: 'clamp(350px, 60vh, 600px)' }     // Massive increase from 210px/35vh/350px
     };
     return sizes[props.size || 'medium'];
   }, [props.size]);
 
+  // Adjust camera position based on viewport width
   const cameraPosition = useMemo(() => {
-    const positions = {
-      small: 3,
-      medium: 4,
+    if (viewportWidth === 0) return 5; // Increased default
+
+    const basePositions = {
+      small: 3.5,
+      medium: 4.5,
       large: 5.5,
-      xlarge: 7
+      xlarge: 7.0
     };
-    return positions[props.size || 'medium'];
-  }, [props.size]);
+
+    const scaleFactor = Math.min(1, viewportWidth / 1200);
+    const textLengthMultiplier = Math.max(1, (props.text?.length || 0) / 12);
+    const screenSizeMultiplier = viewportWidth < 768 ? 1.5 : 1;
+    
+    return basePositions[props.size || 'medium'] 
+      * Math.min(1.3, textLengthMultiplier) 
+      * screenSizeMultiplier 
+      / scaleFactor;
+  }, [props.size, props.text, viewportWidth]);
+
+  // Dynamic FOV based on viewport width
+  const fov = useMemo(() => {
+    if (viewportWidth === 0) return 40; // Default FOV during SSR
+    
+    const baseFOV = 40;
+    if (viewportWidth < 480) return baseFOV * 1.5;
+    if (viewportWidth < 768) return baseFOV * 1.3;
+    return baseFOV;
+  }, [viewportWidth]);
 
   return (
     <div 
@@ -287,13 +318,14 @@ export const ExtrudeButton = (props: ExtrudeButtonProps) => {
         cursor: isHovered && !props.disabled ? 'pointer' : 'default',
         width: '100%',
         height: containerDimensions.height,
+        overflow: 'hidden',
       }}
     >
       <Suspense fallback={<div></div>}>
         <Canvas 
           camera={{ 
             position: [0, 0, cameraPosition], 
-            fov: 35,
+            fov: fov,
           }}
           style={{ 
             background: 'transparent',
@@ -302,19 +334,26 @@ export const ExtrudeButton = (props: ExtrudeButtonProps) => {
             height: '100%',
           }}
           shadows
+          gl={{
+            shadowMap: {
+              enabled: true,
+              type: THREE.PCFSoftShadowMap
+            }
+          }}
         >
           <Stage
+            position={[0, 0, viewportWidth < 768 ? -1 : -0.3]}
             environment="city"
             intensity={0.5}
-            position={[0, 0, props.size === 'xlarge' ? -1 : 0]}
-            shadows={{
+            preset="rembrandt"
+            shadows={{ 
               type: 'contact',
-              opacity: props.shadowOpacity || 0.7,
-              blur: 300,
-              far: 100,
               color: props.shadowColor || '#000000',
-              amount: 100
-
+              colorBlend: 2,
+              opacity: props.shadowOpacity || 0.7,
+              blur: 5,
+              amount: 1,
+              frames:1
             }}
           >
             <ExtrudeButtonInner {...props} onHover={setIsHovered} />

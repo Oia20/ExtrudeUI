@@ -6,6 +6,7 @@ export default function Playground() {
             <div className="max-w-4xl mx-auto text-center">
                 <h1 className="text-4xl md:text-6xl font-bold text-white mb-4 md:mb-6 tracking-tight">
                     Add Depth to Your{' '}
+
                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-violet-400">
                         Web Experience
                     </span>
@@ -15,39 +16,31 @@ export default function Playground() {
                     Create immersive interfaces with our 3D-enhanced component library.
                 </p>
                 <div className="flex flex-col md:flex-row gap-6 md:gap-8 justify-center">
-
-
-
-                    <div className="max-w-[50%] max-h-[150px] min-w-[400px]">
+                    <div className="w-[90vw] sm:w-[80vw] md:w-[50vw] lg:w-[40vw] xl:w-[35vw]">
                         <ExtrudeButton 
                             onClick={() => console.log('clicked')}
-                            depth={1}
+                            depth={2}
                             shape="rounded"
                             text="View Components" 
                             textColor='whitesmoke'
-
-                            metalness={1} 
-                            roughness={0.1} 
-                            size="xlarge"   
-                            shadowColor='whitesmoke'
+                            shadowColor='white'
                             shadowOpacity={1}
 
-
-
-
                             gradient={{
-                                from: '#0a4674',
-                                to: '#60a5fa',
-                                angle: 90
+                                from: '#2a1e70',
+                                to: '#004a99',
+                                angle: 45
                             }}
-
+                            animation='flip'
                         />
                     </div>
                 </div>
 
 
 
+
             </div>
+
         </div>
     );
 }
