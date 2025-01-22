@@ -82,7 +82,20 @@ export default function Playground() {
 
             {/* Rest of your content */}
             <div className="max-w-4xl mx-auto text-center pt-16">
-
+            <ExtrudeImage 
+                src="https://pgtgy4em2f.ufs.sh/f/oMW3imFO9N6PdbCsIqLO4CcZVR3bHSPxKQw6tnGmNfksU0FX"
+                width={2}
+                height={1}
+                floatIntensity={0.5}
+                // frame={true}
+                frameColor="#FFD700"
+                depth={1}
+                shadowColor='white'
+                wobble={true}
+                wobbleSpeed={1}
+                wobbleStrength={.5}
+                shadowOpacity={1}
+                />
                 <h1 className="text-4xl md:text-6xl font-bold text-white mb-4 md:mb-6 tracking-tight">
 
 
@@ -96,15 +109,7 @@ export default function Playground() {
                     ExtrudeUI brings the third dimension to your web applications. 
                     Create immersive interfaces with our 3D-enhanced component library.
                 </p>
-                <ExtrudeImage 
-                src="https://pgtgy4em2f.ufs.sh/f/oMW3imFO9N6PoWVwzYFO9N6PiZVlh2Atm0fQTE7xwbCj3Yya"
-                width={2}
-                height={1.5}
-                floatIntensity={1}
-                frame={true}
-                frameColor="#gold"
-                depth={1}
-                />
+
                 <div className="flex flex-col md:flex-row gap-6 md:gap-8 justify-center items-center">
                     <div className="flex justify-center items-center w-[90vw] sm:w-[80vw] md:w-[50vw] lg:w-[40vw] xl:w-[35vw]">
                         <ExtrudeButton 

@@ -1,8 +1,10 @@
 import { useState, useMemo, useEffect, useRef } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { Image as DreiImage, Float, Stage, Text } from '@react-three/drei';
+import { Image as DreiImage, Float, Stage, Text, MeshWobbleMaterial } from '@react-three/drei';
 import { Suspense } from 'react';
 import * as THREE from 'three';
+import { TextureLoader } from 'three';
+import { useLoader } from '@react-three/fiber';
 
 interface ExtrudeImageProps {
   // Core props
@@ -44,6 +46,12 @@ interface ExtrudeImageProps {
   frame?: boolean;
   frameColor?: string;
   frameWidth?: number;
+  radius?: number;
+  
+  // Wobble properties
+  wobble?: boolean;
+  wobbleSpeed?: number;
+  wobbleStrength?: number;
 }
 
 const ImageScene = ({
@@ -63,73 +71,67 @@ const ImageScene = ({
   frameColor = '#ffffff',
   frameWidth = 0.05,
   onClick,
+  radius = 0.05,
+  wobble = false,
+  wobbleSpeed = 1,
+  wobbleStrength = 0.1,
 }: ExtrudeImageProps) => {
   // Remove hover state since we don't need it anymore
   
   const ImageWithFrame = () => (
     <group>
-      {/* Enhanced 3D frame with bevel and better materials */}
       {frame && (
         <>
           {/* Main frame */}
-          <mesh position={[0, 0, -depth / 2]} castShadow receiveShadow>
+          <mesh position={[0, 0, -depth/2]} castShadow receiveShadow>
             <boxGeometry 
               args={[
                 width + frameWidth * 2, 
                 height + frameWidth * 2, 
-                depth
+                depth + 0.01
               ]} 
             />
-            <meshPhysicalMaterial 
-              color={frameColor}
-              metalness={0.7}
-              roughness={0.2}
-              clearcoat={1}
-              clearcoatRoughness={0.1}
-              reflectivity={1}
-            />
-          </mesh>
-          
-          {/* Add subtle bevel effect with additional geometry */}
-          <mesh position={[0, 0, -depth / 2 + 0.001]} castShadow>
-            <boxGeometry 
-              args={[
-                width + frameWidth * 1.8, 
-                height + frameWidth * 1.8, 
-                depth * 1.1
-              ]} 
-            />
-            <meshPhysicalMaterial 
-              color={frameColor}
-              metalness={0.8}
-              roughness={0.1}
-              clearcoat={1}
-              clearcoatRoughness={0.1}
-              reflectivity={1}
-            />
+
+              <meshPhysicalMaterial 
+                color={frameColor}
+                metalness={0.7}
+                roughness={0.2}
+              />
           </mesh>
         </>
       )}
 
-      {/* Enhanced image with subtle depth effect */}
-      <group position={[0, 0, frame ? depth / 2 + 0.001 : 0]}>
+      {/* Image group */}
+      <group position={[0, 0, frame ? 0.01 : 0]}>
         {/* Shadow/depth layer */}
-        <DreiImage
-          url={src}
-          transparent={true}
-          opacity={0.1}
-          scale={[width * 0.98, height * 0.98, 1]}
-          position={[0, 0, -0.02]}
-        />
-        
+        <mesh scale={[width, height, 1]} position={[0, 0, -depth/2]}>
+          <planeGeometry />
+            <meshBasicMaterial
+              map={useLoader(TextureLoader, src)}
+              transparent
+              opacity={0.1}
+            />
+        </mesh>
+
         {/* Main image */}
-        <DreiImage
-          url={src}
-          transparent={transparent}
-          opacity={opacity}
-          scale={[width, height, 1]}
-          position={[0, 0, 0]}
-        />
+        <mesh scale={[width, height, 1]}>
+          <planeGeometry />
+          {!frame && wobble ? (
+            <MeshWobbleMaterial
+              map={useLoader(TextureLoader, src)}
+              transparent={transparent}
+              opacity={opacity}
+              factor={wobbleStrength}
+              speed={wobbleSpeed}
+            />
+          ) : (
+            <meshBasicMaterial
+              map={useLoader(TextureLoader, src)}
+              transparent={transparent}
+              opacity={opacity}
+            />
+          )}
+        </mesh>
       </group>
     </group>
   );
@@ -142,7 +144,14 @@ const ImageScene = ({
           rotationIntensity={0.2}
           floatIntensity={floatIntensity}
         >
+          <mesh>
+          <MeshWobbleMaterial 
+            transparent={transparent}
+            factor={wobbleStrength}
+            speed={wobbleSpeed}
+          />
           <ImageWithFrame />
+          </mesh>
         </Float>
       ) : (
         <ImageWithFrame />
@@ -209,6 +218,7 @@ export const ExtrudeImage = (props: ExtrudeImageProps) => {
             width: '100%',
             height: '100%',
           }}
+          shadows // Enable shadows in the Canvas
         >
           <Stage
             environment="city"
@@ -218,8 +228,8 @@ export const ExtrudeImage = (props: ExtrudeImageProps) => {
               type: 'contact',
               color: props.shadowColor || '#000000',
               opacity: props.shadowOpacity || 0.5,
-              blur: 2.5,
-              far: 10,
+              blur: 1,
+              intensity: 500,
             }}
           >
             <ImageScene {...props} />
