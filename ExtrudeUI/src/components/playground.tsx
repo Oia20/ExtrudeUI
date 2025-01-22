@@ -10,30 +10,25 @@ export default function Playground() {
     return (
         <div className="min-h-[120vh] flex flex-col bg-zinc-950">
             {/* Navigation Bar */}
-            <nav className="w-full px-4 py-4 border-b border-zinc-800">
-                <div className="max-w-7xl mx-auto flex items-center justify-between">
+            <nav className="w-full border-b border-zinc-800">
+                <div className="max-w-7xl pr-4 flex items-center justify-between">
                     {/* Logo Section - Set explicit height */}
-                    <div className="w-[200px] h-[60px] relative">
-                        <ExtrudeText
-                            fontSize={3}
-                            gradient={{
-                                from: "#905ec2",
-                                to: "#905ec2",
-                                angle: 45
-                            }}
-                            height={0.2}
-                            canvasHeight={60}
-                            shadowColor='#905ec2'
-                            shadowOpacity={.1}
-                            floatIntensity={10}
+                    <div className="w-[200px] h-[100px] relative">
+                        <ExtrudeImage 
+                            src="https://pgtgy4em2f.ufs.sh/f/oMW3imFO9N6PcOOHfvbMOvsrnRhEwqLJa7FIe6Gtj0Cg5WlT"
+                            width={1}
+                            height={1}
+                            floatIntensity={.2}
+                            frameColor="#FFD700"
+                            depth={.2}
+                            shadowColor='white'
                             wobble={true}
                             wobbleSpeed={1}
                             wobbleStrength={1}
-                            orbitControls={true}
-                        >
-                            Extrude-UI
-                        </ExtrudeText>
-
+                            shadowOpacity={1}
+                            frameStyle='glass'
+                            frame={false}
+                            />
                     </div>
 
                     {/* Mobile Menu Button */}
@@ -82,23 +77,6 @@ export default function Playground() {
 
             {/* Rest of your content */}
             <div className="max-w-4xl mx-auto text-center pt-16 flex flex-col items-center justify-center">
-                <div className='w-[50vw] h-[50vh]'>
-            <ExtrudeImage 
-                src="https://pgtgy4em2f.ufs.sh/f/oMW3imFO9N6PdbCsIqLO4CcZVR3bHSPxKQw6tnGmNfksU0FX"
-                width={2}
-                height={1}
-                floatIntensity={.2}
-                frameColor="#FFD700"
-                depth={2}
-                shadowColor='white'
-                wobble={true}
-                frame={true}
-                wobbleSpeed={1}
-                wobbleStrength={.5}
-                shadowOpacity={1}
-                frameStyle='glass'
-                />
-                </div>
                 <h1 className="text-4xl md:text-6xl font-bold text-white mb-4 md:mb-6 tracking-tight">
 
 

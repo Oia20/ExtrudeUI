@@ -140,16 +140,7 @@ const ImageScene = ({
       )}
 
       {/* Image group */}
-      <group position={[0, 0, frame ? 0.01 : 0]}>
-        {/* Shadow/depth layer */}
-        <mesh scale={[width, height, 1]} position={[0, 0, -depth/2]}>
-          <planeGeometry />
-            <meshBasicMaterial
-              map={useLoader(TextureLoader, src)}
-              transparent
-              opacity={0.1}
-            />
-        </mesh>
+      <group position={[0, 0, frame ? 0.01 : depth]}>
 
         {/* Main image */}
         <mesh scale={[width, height, 1]}>
@@ -157,7 +148,8 @@ const ImageScene = ({
           {!frame && wobble ? (
             <MeshWobbleMaterial
               map={useLoader(TextureLoader, src)}
-              transparent={transparent}
+              transparent={true}
+              alphaTest={0.1}
               opacity={opacity}
               factor={wobbleStrength}
               speed={wobbleSpeed}
@@ -165,7 +157,8 @@ const ImageScene = ({
           ) : (
             <meshBasicMaterial
               map={useLoader(TextureLoader, src)}
-              transparent={transparent}
+              transparent={true}
+              alphaTest={0.1}
               opacity={opacity}
             />
           )}
@@ -244,10 +237,10 @@ export const ExtrudeImage = (props: ExtrudeImageProps) => {
         ...props.style,
       }}
     >
-      <Suspense fallback={props.fallback || <div>Loading...</div>}>
+      <Suspense fallback={props.fallback || <div></div>}>
         <Canvas
           camera={{ 
-            position: [0, 0, Math.max(props.width || 1, props.height || 1) * 1.5], 
+            position: [0, 0, Math.max(props.width || 1, props.height || 1) * 2], 
             fov: 50,
             near: 0.1,
             far: 1000
@@ -255,6 +248,7 @@ export const ExtrudeImage = (props: ExtrudeImageProps) => {
           style={{
             width: '100%',
             height: '100%',
+            backgroundColor: 'transparent',
           }}
           shadows // Enable shadows in the Canvas
         >
