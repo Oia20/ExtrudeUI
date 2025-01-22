@@ -46,6 +46,7 @@ interface ExtrudeImageProps {
   frame?: boolean;
   frameColor?: string;
   frameWidth?: number;
+  frameStyle?: 'metal' | 'glass' | 'matte' | 'glossy';
   radius?: number;
   
   // Wobble properties
@@ -70,6 +71,7 @@ const ImageScene = ({
   frame = false,
   frameColor = '#ffffff',
   frameWidth = 0.05,
+  frameStyle = 'metal',
   onClick,
   radius = 0.05,
   wobble = false,
@@ -78,6 +80,43 @@ const ImageScene = ({
 }: ExtrudeImageProps) => {
   // Remove hover state since we don't need it anymore
   
+  const getFrameMaterial = () => {
+    switch (frameStyle) {
+      case 'metal':
+        return {
+          metalness: 0.9,
+          roughness: 0.2,
+          clearcoat: 0.5
+        };
+      case 'glass':
+        return {
+          metalness: 0.1,
+          roughness: 0.1,
+          transmission: 0.9,
+          thickness: 0.5,
+          clearcoat: 1
+        };
+      case 'matte':
+        return {
+          metalness: 0.1,
+          roughness: 0.8,
+          clearcoat: 0
+        };
+      case 'glossy':
+        return {
+          metalness: 0.3,
+          roughness: 0.2,
+          clearcoat: 1,
+          clearcoatRoughness: 0.1
+        };
+      default:
+        return {
+          metalness: 0.7,
+          roughness: 0.2
+        };
+    }
+  };
+
   const ImageWithFrame = () => (
     <group>
       {frame && (
@@ -94,8 +133,7 @@ const ImageScene = ({
 
               <meshPhysicalMaterial 
                 color={frameColor}
-                metalness={0.7}
-                roughness={0.2}
+                {...getFrameMaterial()}
               />
           </mesh>
         </>
@@ -202,7 +240,7 @@ export const ExtrudeImage = (props: ExtrudeImageProps) => {
       style={{
         position: 'relative',
         width: '100%',
-        height: `${canvasDimensions.height}px`, // Dynamic height based on width
+        height: '100%',
         ...props.style,
       }}
     >

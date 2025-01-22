@@ -81,21 +81,24 @@ export default function Playground() {
             </nav>
 
             {/* Rest of your content */}
-            <div className="max-w-4xl mx-auto text-center pt-16">
+            <div className="max-w-4xl mx-auto text-center pt-16 flex flex-col items-center justify-center">
+                <div className='w-[50vw] h-[50vh]'>
             <ExtrudeImage 
                 src="https://pgtgy4em2f.ufs.sh/f/oMW3imFO9N6PdbCsIqLO4CcZVR3bHSPxKQw6tnGmNfksU0FX"
                 width={2}
                 height={1}
-                floatIntensity={0.5}
-                // frame={true}
+                floatIntensity={.2}
                 frameColor="#FFD700"
-                depth={1}
+                depth={2}
                 shadowColor='white'
                 wobble={true}
+                frame={true}
                 wobbleSpeed={1}
                 wobbleStrength={.5}
                 shadowOpacity={1}
+                frameStyle='glass'
                 />
+                </div>
                 <h1 className="text-4xl md:text-6xl font-bold text-white mb-4 md:mb-6 tracking-tight">
 
 
