@@ -4,6 +4,7 @@ import * as THREE from 'three'
 import { MeshDistortMaterial, MeshWobbleMaterial } from '@react-three/drei'
 import { useState, useRef, useEffect } from 'react'
 import { forwardRef } from 'react'
+import { Suspense } from 'react'
 
 interface GradientProps {
   from: string;
@@ -38,6 +39,11 @@ interface ExtrudeTextProps {
     wobbleSpeed?: number;
     wobbleStrength?: number;
     orbitControls?: boolean;
+    
+    // Loading state
+    fallback?: React.ReactNode;
+    loadingAnimation?: 'spinner' | 'pulse' | 'dots' | 'none';
+    loadingColor?: string;
 }
 
 export const ExtrudeText = ({ 
@@ -66,6 +72,9 @@ export const ExtrudeText = ({
     wobbleSpeed = 1,
     wobbleStrength = 0.1,
     orbitControls = false,
+    fallback,
+    loadingAnimation = 'spinner',
+    loadingColor = '#000000',
 }: ExtrudeTextProps) => {
     const [scale, setScale] = useState(1);
     const [dimensions, setDimensions] = useState({ width: 300, height: 100 });
@@ -107,6 +116,72 @@ export const ExtrudeText = ({
         }
     }, [children, fontSize, containerRef.current?.clientWidth]);
 
+    const LoadingComponent = () => {
+        switch (loadingAnimation) {
+            case 'spinner':
+                return (
+                    <div style={{
+                        width: '100%',
+                        height: '100%',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center'
+                    }}>
+                        <div style={{
+                            width: '40px',
+                            height: '40px',
+                            border: `3px solid ${loadingColor}20`,
+                            borderTop: `3px solid ${loadingColor}`,
+                            borderRadius: '50%',
+                            animation: 'spin 1s linear infinite',
+                        }} />
+                    </div>
+                );
+            case 'pulse':
+                return (
+                    <div style={{
+                        width: '100%',
+                        height: '100%',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center'
+                    }}>
+                        <div style={{
+                            width: '40px',
+                            height: '40px',
+                            backgroundColor: loadingColor,
+                            borderRadius: '50%',
+                            animation: 'pulse 1.5s ease-in-out infinite',
+                        }} />
+                    </div>
+                );
+            case 'dots':
+                return (
+                    <div style={{
+                        width: '100%',
+                        height: '100%',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        gap: '8px'
+                    }}>
+                        {[0, 1, 2].map((i) => (
+                            <div key={i} style={{
+                                width: '12px',
+                                height: '12px',
+                                backgroundColor: loadingColor,
+                                borderRadius: '50%',
+                                animation: `dots 1.4s ease-in-out ${i * 0.16}s infinite`,
+                            }} />
+                        ))}
+                    </div>
+                );
+            case 'none':
+            default:
+                return <div style={{width: '100%', height: '100%'}} />;
+        }
+    };
+
     return (
         <h1 
             className={className}
@@ -118,6 +193,23 @@ export const ExtrudeText = ({
                 height: typeof canvasHeight === 'number' ? `${canvasHeight}px` : canvasHeight,
             }}
         >
+            <style>
+                {`
+                    @keyframes spin {
+                        0% { transform: rotate(0deg); }
+                        100% { transform: rotate(360deg); }
+                    }
+                    @keyframes pulse {
+                        0% { transform: scale(0.8); opacity: 0.5; }
+                        50% { transform: scale(1); opacity: 1; }
+                        100% { transform: scale(0.8); opacity: 0.5; }
+                    }
+                    @keyframes dots {
+                        0%, 100% { transform: scale(0.7); }
+                        50% { transform: scale(1); }
+                    }
+                `}
+            </style>
             <div 
                 ref={containerRef} 
                 style={{ 
@@ -126,47 +218,72 @@ export const ExtrudeText = ({
                     position: 'relative',
                 }}
             >
-                <Canvas
-                    camera={{ 
-                        position: [0, 0, 5],
-                        fov: 50,
-                    }}
-                    style={{ 
-                        background: 'transparent',
-                        height: '100%',
-                        width: '100%',
-                    }}
-                    shadows
-                >
-                    <ambientLight intensity={1} />
-                    <pointLight 
-                        position={[10, 10, 10]} 
-                        castShadow 
-                        intensity={100}
-                        shadow-mapSize={[1024, 1024]}
-                    />
-                    
-                    {/* Add shadow-catching plane */}
-                    <mesh 
-                        rotation={[-Math.PI / 2, 0, 0]} 
-                        position={[0, -2, 0]} 
-                        receiveShadow
+                <Suspense fallback={fallback || <LoadingComponent />}>
+                    <Canvas
+                        camera={{ 
+                            position: [0, 0, 5],
+                            fov: 50,
+                        }}
+                        style={{ 
+                            background: 'transparent',
+                            height: '100%',
+                            width: '100%',
+                        }}
+                        shadows
                     >
-                        <planeGeometry args={[100, 100]} />
-                        <shadowMaterial 
-                            transparent 
-                            opacity={shadowOpacity} 
-                            color={shadowColor} 
+                        <ambientLight intensity={1} />
+                        <pointLight 
+                            position={[10, 10, 10]} 
+                            castShadow 
+                            intensity={100}
+                            shadow-mapSize={[1024, 1024]}
                         />
-                    </mesh>
+                        
+                        {/* Add shadow-catching plane */}
+                        <mesh 
+                            rotation={[-Math.PI / 2, 0, 0]} 
+                            position={[0, -2, 0]} 
+                            receiveShadow
+                        >
+                            <planeGeometry args={[100, 100]} />
+                            <shadowMaterial 
+                                transparent 
+                                opacity={shadowOpacity} 
+                                color={shadowColor} 
+                            />
+                        </mesh>
 
-                    <Center scale={[scale * 1.5, scale * 1.5, scale * 1.5]}>
-                        {animation === 'float' ? (
-                            <Float 
-                                speed={1} // Animation speed
-                                rotationIntensity={0} // No rotation
-                                floatIntensity={floatIntensity} // Use the prop we already have
-                            >
+                        <Center scale={[scale * 1.5, scale * 1.5, scale * 1.5]}>
+                            {animation === 'float' ? (
+                                <Float 
+                                    speed={1} // Animation speed
+                                    rotationIntensity={0} // No rotation
+                                    floatIntensity={floatIntensity} // Use the prop we already have
+                                >
+                                    <TextMesh
+                                        ref={textRef}
+                                        color={color}
+                                        gradient={gradient}
+                                        fontSize={fontSize}
+                                        height={height}
+                                        letterSpacing={letterSpacing}
+                                        bevelEnabled={bevelEnabled}
+                                        bevelSize={bevelSize}
+                                        bevelThickness={bevelThickness}
+                                        metalness={metalness}
+                                        roughness={roughness}
+                                        distort={distort}
+                                        distortSpeed={distortSpeed}
+                                        shadowColor={shadowColor}
+                                        shadowOpacity={shadowOpacity}
+                                        wobble={wobble}
+                                        wobbleSpeed={wobbleSpeed}
+                                        wobbleStrength={wobbleStrength}
+                                    >
+                                        {wrappedText}
+                                    </TextMesh>
+                                </Float>
+                            ) : (
                                 <TextMesh
                                     ref={textRef}
                                     color={color}
@@ -189,40 +306,17 @@ export const ExtrudeText = ({
                                 >
                                     {wrappedText}
                                 </TextMesh>
-                            </Float>
-                        ) : (
-                            <TextMesh
-                                ref={textRef}
-                                color={color}
-                                gradient={gradient}
-                                fontSize={fontSize}
-                                height={height}
-                                letterSpacing={letterSpacing}
-                                bevelEnabled={bevelEnabled}
-                                bevelSize={bevelSize}
-                                bevelThickness={bevelThickness}
-                                metalness={metalness}
-                                roughness={roughness}
-                                distort={distort}
-                                distortSpeed={distortSpeed}
-                                shadowColor={shadowColor}
-                                shadowOpacity={shadowOpacity}
-                                wobble={wobble}
-                                wobbleSpeed={wobbleSpeed}
-                                wobbleStrength={wobbleStrength}
-                            >
-                                {wrappedText}
-                            </TextMesh>
-                        )}
-                    </Center>
+                            )}
+                        </Center>
 
-                    {orbitControls && (
-                        <OrbitControls 
-                            enableZoom={false}
-                            enablePan={false}
-                        />
-                    )}
-                </Canvas>
+                        {orbitControls && (
+                            <OrbitControls 
+                                enableZoom={false}
+                                enablePan={false}
+                            />
+                        )}
+                    </Canvas>
+                </Suspense>
             </div>
         </h1>
     )

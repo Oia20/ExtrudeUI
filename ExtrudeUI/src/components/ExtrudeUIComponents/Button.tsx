@@ -45,6 +45,11 @@ interface ExtrudeButtonProps {
     to: string;
     angle?: number; // in degrees, default 0 (horizontal)
   };
+
+  // Loading state
+  fallback?: React.ReactNode;
+  loadingAnimation?: 'spinner' | 'pulse' | 'dots' | 'none';
+  loadingColor?: string;
 }
 
 const ExtrudeButtonInner = ({
@@ -311,6 +316,31 @@ export const ExtrudeButton = (props: ExtrudeButtonProps) => {
     return baseFOV;
   }, [viewportWidth]);
 
+  const LoadingComponent = () => {
+    switch (props.loadingAnimation) {
+      case 'spinner':
+        return (
+          <div style={{
+            width: '100%',
+            height: '100%',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center'
+          }}>
+            <div style={{
+              width: '40px',
+              height: '40px',
+              border: `3px solid ${props.loadingColor}20`,
+              borderTop: `3px solid ${props.loadingColor}`,
+              borderRadius: '50%',
+              animation: 'spin 1s linear infinite',
+            }} />
+          </div>
+        );
+      // ... rest of loading cases ...
+    }
+  };
+
   return (
     <div 
       style={{ 
@@ -321,7 +351,24 @@ export const ExtrudeButton = (props: ExtrudeButtonProps) => {
         overflow: 'hidden',
       }}
     >
-      <Suspense fallback={<div></div>}>
+      <style>
+        {`
+          @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+          }
+          @keyframes pulse {
+            0% { transform: scale(0.8); opacity: 0.5; }
+            50% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(0.8); opacity: 0.5; }
+          }
+          @keyframes dots {
+            0%, 100% { transform: scale(0.7); }
+            50% { transform: scale(1); }
+          }
+        `}
+      </style>
+      <Suspense fallback={props.fallback || <LoadingComponent />}>
         <Canvas 
           camera={{ 
             position: [0, 0, cameraPosition], 

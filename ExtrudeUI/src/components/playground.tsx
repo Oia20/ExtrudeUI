@@ -192,8 +192,11 @@ export default function Playground() {
                         shadowOpacity={.4}
                         onClick={() => console.log('Model clicked!')}
                         cameraDistance={9}
+                        loadingAnimation='spinner'
+                        loadingColor='white'
                         />
                     </div>
+
                 <h1 className="text-4xl md:text-6xl font-bold text-white mb-4 md:mb-6 tracking-tight p-4">
                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-violet-300">
                         Easily Add Depth

@@ -39,6 +39,8 @@ interface ExtrudeModelProps {
   
   // Loading state
   fallback?: React.ReactNode;
+  loadingAnimation?: 'spinner' | 'pulse' | 'dots' | 'none';
+  loadingColor?: string;
   
   // New prop
   cameraDistance?: number;
@@ -149,6 +151,8 @@ export const ExtrudeModel = ({
     minPolarAngle: 0,
     maxPolarAngle: Math.PI
   },
+  loadingAnimation = 'spinner',
+  loadingColor = '#000000',
   ...props 
 }: ExtrudeModelProps) => {
   const [containerDimensions, setContainerDimensions] = useState({ width: 0, height: 0 });
@@ -184,6 +188,72 @@ export const ExtrudeModel = ({
     }
   }, []);
 
+  const LoadingComponent = () => {
+    switch (loadingAnimation) {
+      case 'spinner':
+        return (
+          <div style={{
+            width: '100%',
+            height: '100%',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center'
+          }}>
+            <div style={{
+              width: '40px',
+              height: '40px',
+              border: `3px solid ${loadingColor}20`,
+              borderTop: `3px solid ${loadingColor}`,
+              borderRadius: '50%',
+              animation: 'spin 1s linear infinite',
+            }} />
+          </div>
+        );
+      case 'pulse':
+        return (
+          <div style={{
+            width: '100%',
+            height: '100%',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center'
+          }}>
+            <div style={{
+              width: '40px',
+              height: '40px',
+              backgroundColor: loadingColor,
+              borderRadius: '50%',
+              animation: 'pulse 1.5s ease-in-out infinite',
+            }} />
+          </div>
+        );
+      case 'dots':
+        return (
+          <div style={{
+            width: '100%',
+            height: '100%',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            gap: '8px'
+          }}>
+            {[0, 1, 2].map((i) => (
+              <div key={i} style={{
+                width: '12px',
+                height: '12px',
+                backgroundColor: loadingColor,
+                borderRadius: '50%',
+                animation: `dots 1.4s ease-in-out ${i * 0.16}s infinite`,
+              }} />
+            ))}
+          </div>
+        );
+      case 'none':
+      default:
+        return <div style={{width: '100%', height: '100%'}} />;
+    }
+  };
+
   return (
     <div
       ref={containerRef}
@@ -192,11 +262,28 @@ export const ExtrudeModel = ({
         position: 'relative',
         width: '100%',
         height: '100%',
-        touchAction: enableOrbitControls ? 'none' : 'auto', // Prevent scroll interference
+        touchAction: enableOrbitControls ? 'none' : 'auto',
         ...props.style,
       }}
     >
-      <Suspense fallback={props.fallback || <div style={{width: '100%', height: '100%'}}></div>}>
+      <style>
+        {`
+          @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+          }
+          @keyframes pulse {
+            0% { transform: scale(0.8); opacity: 0.5; }
+            50% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(0.8); opacity: 0.5; }
+          }
+          @keyframes dots {
+            0%, 100% { transform: scale(0.7); }
+            50% { transform: scale(1); }
+          }
+        `}
+      </style>
+      <Suspense fallback={props.fallback || <LoadingComponent />}>
         <Canvas
           camera={{ 
             position: [0, 0, cameraDistance], 

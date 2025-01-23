@@ -53,6 +53,10 @@ interface ExtrudeImageProps {
   wobble?: boolean;
   wobbleSpeed?: number;
   wobbleStrength?: number;
+  
+  // Loading animation
+  loadingAnimation?: 'spinner' | 'pulse' | 'dots';
+  loadingColor?: string;
 }
 
 const ImageScene = ({
@@ -191,23 +195,52 @@ const ImageScene = ({
   );
 };
 
-export const ExtrudeImage = (props: ExtrudeImageProps) => {
+export const ExtrudeImage = ({
+  src,
+  alt,
+  width = 1,
+  height = 1,
+  scale = 1,
+  depth = 0.1,
+  floatIntensity = 1,
+  floatSpeed = 1,
+  opacity = 1,
+  transparent = false,
+  grayscale = false,
+  animation = 'float',
+  frame = false,
+  frameColor = '#ffffff',
+  frameWidth = 0.05,
+  frameStyle = 'metal',
+  onClick,
+  radius = 0.05,
+  wobble = false,
+  wobbleSpeed = 1,
+  wobbleStrength = 0.1,
+  fallback,
+  loadingAnimation = 'spinner',
+  loadingColor = '#000000',
+  className,
+  style,
+  shadowColor,
+  shadowOpacity,
+}: ExtrudeImageProps) => {
   const [containerDimensions, setContainerDimensions] = useState({ width: 0, height: 0 });
   const containerRef = useRef<HTMLDivElement>(null);
 
   // Calculate canvas dimensions based on container width
   const canvasDimensions = useMemo(() => {
-    const aspectRatio = props.width! / props.height!;
+    const aspectRatio = width! / height!;
     const containerWidth = containerDimensions.width;
     
-    // Calculate height based on the aspect ratio
-    const height = containerWidth / aspectRatio;
+    // Calculate canvas height based on the aspect ratio
+    const canvasHeight = containerWidth / aspectRatio;
 
     return { 
       width: containerWidth, 
-      height 
+      height: canvasHeight 
     };
-  }, [containerDimensions.width, props.width, props.height]);
+  }, [containerDimensions.width, width, height]);
 
   useEffect(() => {
     if (containerRef.current) {
@@ -226,21 +259,63 @@ export const ExtrudeImage = (props: ExtrudeImageProps) => {
     }
   }, []);
 
+  const LoadingComponent = () => {
+    switch (loadingAnimation) {
+      case 'spinner':
+        return (
+          <div style={{
+            width: '100%',
+            height: '100%',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center'
+          }}>
+            <div style={{
+              width: '40px',
+              height: '40px',
+              border: `3px solid ${loadingColor}20`,
+              borderTop: `3px solid ${loadingColor}`,
+              borderRadius: '50%',
+              animation: 'spin 1s linear infinite',
+            }} />
+          </div>
+        );
+      // ... rest of loading cases ...
+    }
+  };
+
   return (
     <div
       ref={containerRef}
-      className={props.className}
+      className={className}
       style={{
         position: 'relative',
         width: '100%',
         height: '100%',
-        ...props.style,
+        ...style,
       }}
     >
-      <Suspense fallback={props.fallback}>
+      <style>
+        {`
+          @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+          }
+          @keyframes pulse {
+            0% { transform: scale(0.8); opacity: 0.5; }
+            50% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(0.8); opacity: 0.5; }
+          }
+          @keyframes dots {
+            0%, 100% { transform: scale(0.7); }
+            50% { transform: scale(1); }
+          }
+        `}
+      </style>
+      <Suspense fallback={fallback || <LoadingComponent />}>
         <Canvas
           camera={{ 
-            position: [0, 0, Math.max(props.width || 1, props.height || 1) * 2], 
+            position: [0, 0, Math.max(width || 1, height || 1) * 2], 
             fov: 50,
             near: 0.1,
             far: 1000
@@ -258,13 +333,35 @@ export const ExtrudeImage = (props: ExtrudeImageProps) => {
             preset="rembrandt"
             shadows={{
               type: 'contact',
-              color: props.shadowColor || '#000000',
-              opacity: props.shadowOpacity || 0.5,
+              color: shadowColor || '#000000',
+              opacity: shadowOpacity || 0.5,
               blur: 1,
               intensity: 500,
             }}
           >
-            <ImageScene {...props} />
+            <ImageScene {...{
+              src,
+              alt,
+              width,
+              height,
+              scale,
+              depth,
+              floatIntensity,
+              floatSpeed,
+              opacity,
+              transparent,
+              grayscale,
+              animation,
+              frame,
+              frameColor,
+              frameWidth,
+              frameStyle,
+              onClick,
+              radius,
+              wobble,
+              wobbleSpeed,
+              wobbleStrength,
+            }} />
           </Stage>
         </Canvas>
       </Suspense>
