@@ -2,6 +2,7 @@ import { ExtrudeButton } from './ExtrudeUIComponents/Button';
 import { ExtrudeText } from './ExtrudeUIComponents/Text';
 import { useState } from 'react';
 import { ExtrudeImage } from './ExtrudeUIComponents/Image';
+import { ExtrudeModel } from './ExtrudeUIComponents/OwnModel';
 
 
 export default function Playground() {
@@ -76,10 +77,22 @@ export default function Playground() {
             </nav>
 
             {/* Rest of your content */}
-            <div className="max-w-4xl mx-auto text-center pt-16 flex flex-col items-center justify-center">
+            <div className="max-w-4xl mx-auto text-center flex flex-col items-center justify-center">
+            <div className='w-screen h-[300px]'>
+                    <ExtrudeModel 
+                        src="https://pgtgy4em2f.ufs.sh/f/oMW3imFO9N6PMoVElVQO8pGXljN6t5qRAgQyaudImEPvfhF7"
+                        scale={1}
+                        animation='spinHorizontal'
+                        animationSpeed={.5}
+                        floatSpeed={1}
+                        floatIntensity={.2}
+                        shadowColor="whitesmoke"
+                        shadowOpacity={.4}
+                        onClick={() => console.log('Model clicked!')}
+                        cameraDistance={9}
+                        />
+                    </div>
                 <h1 className="text-4xl md:text-6xl font-bold text-white mb-4 md:mb-6 tracking-tight">
-
-
                     Add Depth to Your{' '}
 
                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-violet-400">
