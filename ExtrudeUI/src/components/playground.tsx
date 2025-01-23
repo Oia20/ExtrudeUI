@@ -90,6 +90,7 @@ export default function Playground() {
                         shadowOpacity={.4}
                         onClick={() => console.log('Model clicked!')}
                         cameraDistance={9}
+                        fallback={<div className=''></div>}
                         />
                     </div>
                 <h1 className="text-4xl md:text-6xl font-bold text-white mb-4 md:mb-6 tracking-tight">

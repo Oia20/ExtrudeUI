@@ -154,6 +154,19 @@ export const ExtrudeModel = ({
   const [containerDimensions, setContainerDimensions] = useState({ width: 0, height: 0 });
   const containerRef = useRef<HTMLDivElement>(null);
 
+  // Add touch event handlers to prevent unwanted scrolling behavior
+  useEffect(() => {
+    const container = containerRef.current;
+    if (container && enableOrbitControls) {
+      const preventDefault = (e: TouchEvent) => {
+        e.preventDefault();
+      };
+      
+      container.addEventListener('touchmove', preventDefault, { passive: false });
+      return () => container.removeEventListener('touchmove', preventDefault);
+    }
+  }, [enableOrbitControls]);
+
   useEffect(() => {
     if (containerRef.current) {
       const updateDimensions = () => {
@@ -179,6 +192,7 @@ export const ExtrudeModel = ({
         position: 'relative',
         width: '100%',
         height: '100%',
+        touchAction: enableOrbitControls ? 'none' : 'auto', // Prevent scroll interference
         ...props.style,
       }}
     >
@@ -196,9 +210,19 @@ export const ExtrudeModel = ({
             backgroundColor: 'transparent',
           }}
           shadows
+          // Add performance optimizations
+          dpr={[1, 2]} // Limit pixel ratio
+          performance={{ min: 0.5 }} // Allow frame rate to drop if needed
         >
             <ambientLight intensity={0} />
-            {enableOrbitControls && <OrbitControls {...orbitControlsOptions} />}
+            {enableOrbitControls && (
+              <OrbitControls
+                {...orbitControlsOptions}
+                makeDefault // Make controls persistent
+                enableDamping // Add smooth damping
+                dampingFactor={0.05}
+              />
+            )}
           <Stage
             environment="city"
             intensity={1}
