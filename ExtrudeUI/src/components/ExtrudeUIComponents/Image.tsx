@@ -237,7 +237,7 @@ export const ExtrudeImage = (props: ExtrudeImageProps) => {
         ...props.style,
       }}
     >
-      <Suspense fallback={props.fallback || <div></div>}>
+      <Suspense fallback={props.fallback}>
         <Canvas
           camera={{ 
             position: [0, 0, Math.max(props.width || 1, props.height || 1) * 2], 
