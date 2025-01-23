@@ -199,7 +199,7 @@ export default function Playground() {
             <div className="max-w-4xl mx-auto text-center flex flex-col items-center justify-center">
             <div className='w-screen h-[200px]'>
                     <ExtrudeModel 
-                        src="./my_computer.glb"
+                        src="https://pgtgy4em2f.ufs.sh/f/oMW3imFO9N6P6Of7ocsmGejAtcyTgUZxOlvs957oqHSRCnhi"
                         scale={1}
                         animation='spinHorizontal'
                         animationSpeed={.5}
@@ -208,7 +208,7 @@ export default function Playground() {
                         shadowColor="whitesmoke"
                         shadowOpacity={.4}
                         onClick={() => console.log('Model clicked!')}
-                        cameraDistance={9}
+                        cameraDistance={3.5}
                         loadingAnimation='spinner'
                         loadingColor='white'
                         />
@@ -262,16 +262,24 @@ export default function Playground() {
             <div className="max-w-4xl mx-auto w-full py-16 px-4">
                 <div className="bg-[#1a0d5f]/60 backdrop-blur-xl rounded-2xl p-6 shadow-2xl border border-indigo-500/30">
                     <h2 className="text-2xl font-semibold text-white mb-4">Quick Installation</h2>
-                    <div className="flex items-center gap-4">
-                        <code className="flex-1 bg-[#130850] text-indigo-200 p-4 rounded-lg font-mono">
-                            {installCommand}
-                        </code>
-                        <button
-                            onClick={handleCopyClick}
-                            className="px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white transition-colors"
+                    <div className="flex flex-col gap-4">
+                        <div className="flex items-center gap-4">
+                            <code className="flex-1 bg-[#130850] text-indigo-200 p-4 rounded-lg font-mono">
+                                {installCommand}
+                            </code>
+                            <button
+                                onClick={handleCopyClick}
+                                className="px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white transition-colors"
+                            >
+                                {copySuccess ? 'Copied!' : 'Copy'}
+                            </button>
+                        </div>
+                        <a 
+                            href="#" 
+                            className="text-indigo-300 hover:text-indigo-200 transition-colors text-center"
                         >
-                            {copySuccess ? 'Copied!' : 'Copy'}
-                        </button>
+                            View the documentation to get started →
+                        </a>
                     </div>
                 </div>
             </div>
@@ -388,25 +396,27 @@ export default function Playground() {
                             <h3 className="text-white font-semibold mb-4">Resources</h3>
                             <ul className="space-y-2 text-indigo-200">
                                 <li><a href="#" className="hover:text-white transition-colors">Documentation</a></li>
-                                <li><a href="#" className="hover:text-white transition-colors">Examples</a></li>
-                                <li><a href="#" className="hover:text-white transition-colors">Tutorials</a></li>
+                                <li><a href="#showcase" className="hover:text-white transition-colors">Examples</a></li>
                             </ul>
                         </div>
                         <div>
+
                             <h3 className="text-white font-semibold mb-4">Community</h3>
                             <ul className="space-y-2 text-indigo-200">
-                                <li><a href="#" className="hover:text-white transition-colors">GitHub</a></li>
+                                <li><a href="https://github.com/Oia20/ExtrudeUI" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">GitHub</a></li>
                             </ul>
                         </div>
                         <div>
+
                             <h3 className="text-white font-semibold mb-4">Legal</h3>
                             <ul className="space-y-2 text-indigo-200">
                                 <li><a href="#" className="hover:text-white transition-colors">Privacy Policy</a></li>
                                 <li><a href="#" className="hover:text-white transition-colors">Terms of Service</a></li>
-                                <li><a href="#" className="hover:text-white transition-colors">License</a></li>
+                                <li><a href="https://github.com/Oia20/ExtrudeUI/blob/main/LICENSE" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">License</a></li>
                             </ul>
                         </div>
                     </div>
+
                     <div className="mt-12 pt-8 border-t border-indigo-950/30 text-center text-indigo-200">
                         <p>© {new Date().getFullYear()} ExtrudeUI. All rights reserved.</p>
                     </div>
