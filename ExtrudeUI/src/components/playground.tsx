@@ -80,7 +80,7 @@ export default function Playground() {
             <div className="max-w-4xl mx-auto text-center flex flex-col items-center justify-center">
             <div className='w-screen h-[300px]'>
                     <ExtrudeModel 
-                        src="https://pgtgy4em2f.ufs.sh/f/oMW3imFO9N6PMoVElVQO8pGXljN6t5qRAgQyaudImEPvfhF7"
+                        src="./my_computer.glb"
                         scale={1}
                         animation='spinHorizontal'
                         animationSpeed={.5}
