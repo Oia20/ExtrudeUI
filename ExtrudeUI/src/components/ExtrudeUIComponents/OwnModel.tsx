@@ -297,7 +297,6 @@ export const ExtrudeModel = ({
             backgroundColor: 'transparent',
           }}
           shadows
-          // Add performance optimizations
           dpr={[1, 2]} // Limit pixel ratio
           performance={{ min: 0.5 }} // Allow frame rate to drop if needed
         >

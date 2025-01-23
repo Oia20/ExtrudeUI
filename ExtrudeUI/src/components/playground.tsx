@@ -109,10 +109,8 @@ export default function Playground() {
 
     return (
         <div className="min-h-[120vh] flex flex-col bg-gradient-to-b from-[#0a0635] to-[#1a0445]">
-            {/* Navigation Bar */}
             <nav className="w-full border-b border-indigo-950/30 backdrop-blur-sm sticky top-0 z-50">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-                    {/* Logo Section */}
                     <div className="w-[180px] h-[90px] relative">
                         <ExtrudeImage 
                             src="https://pgtgy4em2f.ufs.sh/f/oMW3imFO9N6PcOOHfvbMOvsrnRhEwqLJa7FIe6Gtj0Cg5WlT"
@@ -131,7 +129,6 @@ export default function Playground() {
                         />
                     </div>
 
-                    {/* Mobile Menu Button */}
                     <button 
                         className="md:hidden p-2 rounded-lg text-indigo-200 hover:bg-indigo-950/30 transition-colors"
                         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -146,7 +143,6 @@ export default function Playground() {
                         </svg>
                     </button>
 
-                    {/* Desktop Navigation Links */}
                     <div className="hidden md:flex items-center gap-8">
                         <a href="#showcase" className="text-indigo-200 hover:text-white hover:bg-indigo-950/30 px-4 py-2 rounded-lg transition-all duration-200">
                         Showcase
@@ -168,7 +164,6 @@ export default function Playground() {
                     </div>
                 </div>
 
-                {/* Mobile Menu */}
                 {isMobileMenuOpen && (
                     <div className="md:hidden absolute w-full bg-[#0a0635]/95 backdrop-blur-sm border-b border-indigo-950/30">
                         <div className="flex flex-col p-4 space-y-3">
@@ -195,7 +190,6 @@ export default function Playground() {
             </nav>
 
 
-            {/* Rest of your content */}
             <div className="max-w-4xl mx-auto text-center flex flex-col items-center justify-center">
             <div className='w-screen h-[200px]'>
                     <ExtrudeModel 
@@ -227,14 +221,12 @@ export default function Playground() {
                 </p>
 
 
-                            {/* Component Showcase Section */}
             <div className="max-w-3xl mx-auto w-full py-24 px-4" id='showcase'>
                 <div className="bg-[#1a0d5f]/60 backdrop-blur-xl rounded-2xl p-4 shadow-2xl border border-indigo-500/30">
                     <h2 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-200 to-violet-200 text-center mb-12">
                         Component Showcase
                     </h2>
                     
-                    {/* Component Selector Buttons */}
                     <div className="flex flex-wrap justify-center gap-4 mb-12">
                         {['Custom Models', 'button', 'text', 'image'].map((component) => (
                             <button
@@ -251,14 +243,12 @@ export default function Playground() {
                         ))}
                     </div>
 
-                    {/* Component Demo Area */}
                     <div className="bg-[#130850] rounded-xl min-h-[400px] flex items-center justify-center border border-indigo-500/30 shadow-inner">
                         {renderComponentDemo()}
                     </div>
                 </div>
             </div>
 
-            {/* Quick Installation Section */}
             <div className="max-w-4xl mx-auto w-full py-16 px-4">
                 <div className="bg-[#1a0d5f]/60 backdrop-blur-xl rounded-2xl p-6 shadow-2xl border border-indigo-500/30">
                     <h2 className="text-2xl font-semibold text-white mb-4">Quick Installation</h2>
@@ -286,7 +276,6 @@ export default function Playground() {
 
             </div>
 
-            {/* Open Source Section - replacing Why Choose ExtrudeUI */}
             <div className="max-w-6xl mx-auto w-full py-24 px-4">
                 <div className="text-center mb-16">
                     <h2 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-200 to-violet-200 mb-6">
@@ -332,8 +321,7 @@ export default function Playground() {
                 </div>
             </div>
 
-            {/* Replacing Community Section with Message from Creator */}
-            <div className="max-w-4xl mx-auto w-full py-12 px-4 text-center">
+            <div className="max-w-4xl mx-auto w-full py-4 px-4 text-center">
             <ExtrudeModel 
                     src="https://pgtgy4em2f.ufs.sh/f/oMW3imFO9N6P0cyQDzc6iv43xUKDozXTAhcbr2IsZ0nWGq1J"
                     scale={.5}
