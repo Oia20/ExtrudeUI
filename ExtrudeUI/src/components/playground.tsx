@@ -44,7 +44,7 @@ export default function Playground() {
             case 'image':
                 return (
                     <div className="flex flex-col items-center gap-4">
-                        <div className="w-[400px] h-[400px]">
+                        <div className="w-[300px] h-[300px] sm:w-[350px] sm:h-[350px] md:w-[400px] md:h-[400px]">
                             <ExtrudeImage 
                                 src="https://pgtgy4em2f.ufs.sh/f/oMW3imFO9N6PdbCsIqLO4CcZVR3bHSPxKQw6tnGmNfksU0FX"
                                 width={2}
@@ -175,8 +175,8 @@ export default function Playground() {
 
 
                             {/* Component Showcase Section */}
-            <div className="max-w-4xl mx-auto w-full px-4 py-24">
-                <div className="bg-[#1a0d5f]/60 backdrop-blur-xl rounded-2xl p-8 shadow-2xl border border-indigo-500/30">
+            <div className="max-w-3xl mx-auto w-full py-24 px-4">
+                <div className="bg-[#1a0d5f]/60 backdrop-blur-xl rounded-2xl p-4 shadow-2xl border border-indigo-500/30">
                     <h2 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-200 to-violet-200 text-center mb-12">
                         Component Showcase
                     </h2>
