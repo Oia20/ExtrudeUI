@@ -166,11 +166,11 @@ export default function Playground() {
                         Easily Add Depth
                     </span> to Your{' '}
                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-300 to-blue-300">
-                        Web Experiences
+                        Web Experiences.
                     </span>
                 </h1>
                 <p className="text-lg md:text-xl text-indigo-100 mb-8 p-8 md:mb-10 max-w-[42rem] mx-auto">
-                    ExtrudeUI is the React component library that brings the third dimension to your 2D web apps.
+                    ExtrudeUI is the Open-Source React component library that seamlessly brings the third dimension to your 2D web apps. 
                 </p>
 
 
