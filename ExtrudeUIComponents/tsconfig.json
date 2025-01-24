@@ -11,7 +11,9 @@
       "esModuleInterop": true,
       "skipLibCheck": true,
       "strict": true,
-      "outDir": "dist"
+      "outDir": "dist",
+      "jsxFactory": "React.createElement",
+      "jsxFragmentFactory": "React.Fragment"
     },
     "include": ["src"],
     "exclude": ["node_modules", "dist"]
