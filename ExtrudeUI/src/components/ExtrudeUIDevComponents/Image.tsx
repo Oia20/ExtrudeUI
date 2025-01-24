@@ -315,7 +315,7 @@ export const ExtrudeImage = ({
       <Suspense fallback={fallback || <LoadingComponent />}>
         <Canvas
           camera={{ 
-            position: [0, 0, Math.max(width || 1, height || 1) * 2], 
+            position: [0, 0, 2], 
             fov: 50,
             near: 0.1,
             far: 1000
@@ -325,44 +325,44 @@ export const ExtrudeImage = ({
             height: '100%',
             backgroundColor: 'transparent',
           }}
-          shadows // Enable shadows in the Canvas
+          shadows
         >
-          <Stage
-            environment="city"
+          {/* Replace Stage with custom lighting */}
+          <ambientLight intensity={0.5} />
+          <directionalLight
+            position={[5, 5, 5]}
             intensity={1}
-            preset="rembrandt"
-            shadows={{
-              type: 'contact',
-              color: shadowColor || '#000000',
-              opacity: shadowOpacity || 0.5,
-              blur: 1,
-              intensity: 500,
-            }}
-          >
-            <ImageScene {...{
-              src,
-              alt,
-              width,
-              height,
-              scale,
-              depth,
-              floatIntensity,
-              floatSpeed,
-              opacity,
-              transparent,
-              grayscale,
-              animation,
-              frame,
-              frameColor,
-              frameWidth,
-              frameStyle,
-              onClick,
-              radius,
-              wobble,
-              wobbleSpeed,
-              wobbleStrength,
-            }} />
-          </Stage>
+            castShadow
+            shadow-mapSize={[1024, 1024]}
+          />
+          <directionalLight
+            position={[-5, 5, -5]}
+            intensity={0.5}
+          />
+
+          <ImageScene {...{
+            src,
+            alt,
+            width,
+            height,
+            scale,
+            depth,
+            floatIntensity,
+            floatSpeed,
+            opacity,
+            transparent,
+            grayscale,
+            animation,
+            frame,
+            frameColor,
+            frameWidth,
+            frameStyle,
+            onClick,
+            radius,
+            wobble,
+            wobbleSpeed,
+            wobbleStrength,
+          }} />
         </Canvas>
       </Suspense>
     </div>

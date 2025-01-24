@@ -1,6 +1,6 @@
 {
   "name": "extrude-ui",
-  "version": "0.0.4",
+  "version": "0.5.0",
   "description": "Extrude UI 3D Component Library",
   "main": "dist/index.js",
   "module": "dist/index.mjs",

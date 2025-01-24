@@ -1,8 +1,8 @@
-import { ExtrudeButton } from './ExtrudeUIComponents/Button';
-import { ExtrudeText } from './ExtrudeUIComponents/Text';
+import { ExtrudeButton } from './ExtrudeUIDevComponents/Button';
+import { ExtrudeText } from './ExtrudeUIDevComponents/Text';
 import { useState } from 'react';
-import { ExtrudeImage } from './ExtrudeUIComponents/Image';
-import { ExtrudeModel } from './ExtrudeUIComponents/OwnModel';
+import { ExtrudeImage } from './ExtrudeUIDevComponents/Image';
+import { ExtrudeModel } from './ExtrudeUIDevComponents/OwnModel';
 
 
 export default function Playground() {
@@ -69,15 +69,17 @@ export default function Playground() {
                     <div className="flex flex-col items-center justify-between h-full py-8">
                         <div className="w-[300px] h-[300px] sm:w-[350px] sm:h-[350px] md:w-[400px] md:h-[400px]">
                             <ExtrudeImage 
+
                                 src="https://pgtgy4em2f.ufs.sh/f/oMW3imFO9N6PdbCsIqLO4CcZVR3bHSPxKQw6tnGmNfksU0FX"
-                                width={2}
-                                height={1.5}
+                                width={1.5}
+                                height={1.2}
                                 floatIntensity={0.2}
-                                depth={0.2}
+                                depth={.2}
                                 shadowColor="white"
                                 wobble={true}
                                 wobbleSpeed={1}
                                 wobbleStrength={.6}
+                                scale={1}
                             />
                         </div>
                         <p className="text-indigo-200 text-center max-w-md px-4">
@@ -118,7 +120,7 @@ export default function Playground() {
                             height={1}
                             floatIntensity={.2}
                             frameColor="#FFD700"
-                            depth={.2}
+                            depth={1}
                             shadowColor='white'
                             wobble={true}
                             wobbleSpeed={1}
