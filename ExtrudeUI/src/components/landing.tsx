@@ -128,6 +128,8 @@ export default function Playground() {
                             shadowOpacity={1}
                             frameStyle='glass'
                             frame={false}
+                            loadingAnimation='spinner'
+                            loadingColor='white'
                         />
                     </div>
 
