@@ -1,3 +1,4 @@
+import React from 'react';
 import { useState, useMemo, useEffect, useRef } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { Image as DreiImage, Float, Stage, Text, MeshWobbleMaterial } from '@react-three/drei';

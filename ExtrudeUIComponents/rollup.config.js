@@ -5,11 +5,18 @@ import { terser } from 'rollup-plugin-terser';
 
 export default {
   input: 'src/index.ts', // Entry point
-  output: {
-    file: 'dist/index.js', // Output file
-    format: 'esm', // ES Module format
-    sourcemap: true,
-  },
+  output: [
+    {
+      file: 'dist/index.js',
+      format: 'cjs',
+      sourcemap: true,
+    },
+    {
+      file: 'dist/index.mjs',
+      format: 'esm',
+      sourcemap: true,
+    }
+  ],
   plugins: [
     resolve(),
     commonjs(),

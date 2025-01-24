@@ -1,3 +1,4 @@
+import React from 'react';
 import { useState, useMemo, useEffect, useRef } from 'react';
 import { Canvas, useLoader, useFrame } from '@react-three/fiber';
 import { Float, Stage, useGLTF, OrbitControls } from '@react-three/drei';

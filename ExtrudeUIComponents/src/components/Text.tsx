@@ -1,3 +1,4 @@
+import React from 'react';
 import { Canvas } from '@react-three/fiber'
 import { Text3D, OrbitControls, Center, Float, useHelper } from '@react-three/drei'
 import * as THREE from 'three'

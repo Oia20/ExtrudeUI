@@ -1,3 +1,4 @@
+import React from 'react';
 import { useState, useMemo, useEffect } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Text, RoundedBox } from '@react-three/drei';
