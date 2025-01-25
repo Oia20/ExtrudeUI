@@ -14,7 +14,7 @@ interface GradientProps {
 }
 
 interface ExtrudeTextProps {
-    children: string;
+    children: React.ReactNode;
     color?: string;
     gradient?: GradientProps;
     fontSize?: number;
@@ -86,15 +86,27 @@ export const ExtrudeText = ({
     useEffect(() => {
         if (containerRef.current) {
             const containerWidth = containerRef.current.clientWidth;
-            // Increased divisor to create more aggressive wrapping
+            
+            // Handle different types of children to extract text content
+            let textContent = '';
+            if (React.isValidElement(children)) {
+                // If children is a React element, try to get its text content
+                textContent = String(children.props.children || '');
+            } else if (typeof children === 'object') {
+                // If it's an object, try to get a meaningful string representation
+                textContent = String(children?.toString() || JSON.stringify(children) || '');
+            } else {
+                // For strings, numbers, or other primitives
+                textContent = String(children);
+            }
+
             const charsPerLine = Math.floor(containerWidth / (fontSize * 35));
             
-            const words = children.split(' ');
+            const words = textContent.split(' ');
             let lines = [];
             let currentLine = '';
             
             words.forEach(word => {
-                // Added length check to ensure lines don't get too long
                 if ((currentLine + ' ' + word).length <= Math.min(charsPerLine, 30)) {
                     currentLine += (currentLine ? ' ' : '') + word;
                 } else {
@@ -106,8 +118,7 @@ export const ExtrudeText = ({
             
             setWrappedText(lines.join('\n'));
             
-            // Adjusted scale calculation for better text fitting
-            const calculatedScale = Math.min(0.8, containerWidth / (wrappedText.length * fontSize * 25));
+            const calculatedScale = Math.min(0.8, containerWidth / (textContent.length * fontSize * 25));
             
             setScale(calculatedScale);
             setDimensions({
