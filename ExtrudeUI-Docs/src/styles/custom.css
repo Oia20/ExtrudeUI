@@ -19,16 +19,19 @@
 
 /* Dark theme */
 :root[data-theme='dark'] {
-    --sl-color-accent-low: #0a0635;
-    --sl-color-accent: #4c4cff;
-    --sl-color-accent-high: #c4c4ff;
-    --sl-color-white: #f2f0f7;
-    --sl-color-gray-1: #0a0635;  /* Darkest purple from landing */
-    --sl-color-gray-2: #130850;  /* Slightly lighter */
-    --sl-color-gray-3: #1a0445;  /* From landing gradient */
-    --sl-color-gray-4: #2a1b8a;
-    --sl-color-gray-5: #a49fb8;
-    --sl-color-gray-6: #241f33;
-    --sl-color-gray-7: #46434d;
-    --sl-color-black: #060425;   /* Even darker for code blocks */
+    --sl-color-accent-low: #1a0445;   /* Deep purple, more intentional */
+    --sl-color-accent: #46434d;       /* Muted gray with purple undertones */
+    --sl-color-accent-high: #c4c4ff;  /* Kept original soft blue accent */
+    --sl-color-white: #f2f0f7;        /* Soft lavender, maintained */
+    --sl-color-gray-1: #fefdfe;       /* Deep navy-purple, preserved */
+    
+    --sl-color-gray-2: #fdfdfd;       /* Lighter off-white for better readability */
+    
+    --sl-color-gray-3: #a49fb8;       /* Soft muted purple for sidebar */
+    --sl-color-gray-4: #2b2539;       /* Dark purple for subtle backgrounds */
+    --sl-color-gray-5: #46434d;       /* Consistent muted tone */
+    --sl-color-gray-6: #201f39;       /* Deep purple for code blocks */
+    --sl-color-gray-7: #0a0635   ;       /* Dark slate for depth */
+    --sl-color-black: #262647;        /* Deepest purple background */
+
 }

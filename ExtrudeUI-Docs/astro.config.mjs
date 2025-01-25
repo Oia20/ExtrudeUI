@@ -6,7 +6,7 @@ import react from '@astrojs/react';
 // https://astro.build/config
 export default defineConfig({
     integrations: [starlight({
-        title: 'ExtrudeUI Docs',
+        title: 'ExtrudeUI',
         social: {
             github: 'https://github.com/Oia20/ExtrudeUI',
         },
