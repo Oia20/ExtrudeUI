@@ -1,0 +1,58 @@
+---
+title: Introduction
+displayed_title: false
+description: ExtrudeUI is an open source React component library that makes it easy to add 3D elements to your web applications without needing to learn Three.js or React Three Fiber.
+---
+
+import { ExtrudeModel } from 'extrude-ui';
+
+<div style={{ display: 'flex', justifyContent: 'center', marginBottom: '2rem' }}>
+  <img src="https://pgtgy4em2f.ufs.sh/f/oMW3imFO9N6PcOOHfvbMOvsrnRhEwqLJa7FIe6Gtj0Cg5WlT" alt="ExtrudeUI Logo" width="200" />
+</div>
+
+# What is ExtrudeUI?
+
+ExtrudeUI is an open source React component library that makes it easy to add 3D elements to your web applications.
+The components aren't meant to be placed inside of existing 3D scenes, but rather to be placed inside standard 2D websites to add an aspect of depth and interactivity.
+
+
+## Example of ExtrudeUI in action:
+<div style={{ display: 'flex', justifyContent: 'center',height: '50vh', marginBottom: '2rem' }}>
+  <ExtrudeModel 
+  	client: load
+    src="https://pgtgy4em2f.ufs.sh/f/oMW3imFO9N6PGMXaZsoDrtycVXjCfd5wl2SmO179JgaHEqZ0"
+    scale={.02}
+    animation='spinHorizontal'
+    animationSpeed={0.5}
+    loadingAnimation='spinner'
+    loadingColor='white'
+	metalness={1}
+	roughness={3}
+	enableOrbitControls={true}
+  />
+  </div>
+
+	After ExtrudeUI is installed, adding something like the above example is as simple as this:
+
+```jsx
+import { ExtrudeModel } from 'extrude-ui';
+
+  <ExtrudeModel 
+    src="ModelSource.glb"
+    scale={.02}
+    animation='spinHorizontal'
+    animationSpeed={0.5}
+    loadingAnimation='spinner'
+    loadingColor='white'
+		metalness={1}
+		roughness={3}
+		enableOrbitControls={true}
+	/>
+
+```
+
+
+## Ready to Dive In?
+
+- 🚀 View our [installation guide](/docs/installation)
+- 📚 Check out our [Components](/docs/components) to explore the full library

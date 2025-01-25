@@ -1,0 +1,34 @@
+:root {
+    /* Light theme */
+    --sl-color-accent-low: #1a0d5f;
+    --sl-color-accent: #4c4cff;
+    --sl-color-accent-high: #c4c4ff;
+    --sl-color-white: #ffffff;
+    --sl-color-gray-1: #faf9fc;
+    --sl-color-gray-2: #f2f0f7;
+    --sl-color-gray-3: #e9e6f3;
+    --sl-color-gray-4: #a49fb8;
+    --sl-color-gray-5: #2a1b8a;
+    --sl-color-gray-6: #1a0d5f;
+    --sl-color-black: #0a0635;
+    
+    /* Gradients can be used via custom classes */
+    --primary-gradient: linear-gradient(to right, #3730a3, #1e40af);
+    --text-gradient: linear-gradient(to right, #c4c4ff, #4c4cff);
+}
+
+/* Dark theme */
+:root[data-theme='dark'] {
+    --sl-color-accent-low: #0a0635;
+    --sl-color-accent: #4c4cff;
+    --sl-color-accent-high: #c4c4ff;
+    --sl-color-white: #f2f0f7;
+    --sl-color-gray-1: #0a0635;  /* Darkest purple from landing */
+    --sl-color-gray-2: #130850;  /* Slightly lighter */
+    --sl-color-gray-3: #1a0445;  /* From landing gradient */
+    --sl-color-gray-4: #2a1b8a;
+    --sl-color-gray-5: #a49fb8;
+    --sl-color-gray-6: #241f33;
+    --sl-color-gray-7: #46434d;
+    --sl-color-black: #060425;   /* Even darker for code blocks */
+}

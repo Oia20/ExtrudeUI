@@ -1,0 +1,184 @@
+---
+title: ExtrudeButton
+description: A customizable 3D button component with interactive effects and animations.
+---
+
+import { ExtrudeButton } from 'extrude-ui';
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+## Overview
+
+ExtrudeButton is a highly customizable 3D button component that brings depth and interactivity to your user interface. It supports various animations, materials, and styling options.
+
+## Installation
+
+<Tabs>
+  <TabItem label="npm">
+  ```bash
+  npm install extrude-ui
+  ```
+  </TabItem>
+  <TabItem label="pnpm">
+  ```bash
+  pnpm add extrude-ui
+  ```
+  </TabItem>
+  <TabItem label="yarn">
+  ```bash
+  yarn add extrude-ui
+  ```
+  </TabItem>
+</Tabs>
+
+## Usage
+
+```jsx
+import { ExtrudeButton } from 'extrude-ui';
+
+function MyComponent() {
+  return (
+    <ExtrudeButton 
+      text="Click Me!"
+      size="medium"
+      color="#4CAF50"
+      depth={1.5}
+      hover={true}
+    />
+  );
+}
+```
+
+## Examples:
+
+### Basic Button
+<ExtrudeButton 
+  client:load
+  text="Basic Button"
+  size="medium"
+/>
+
+### Animated Button
+<ExtrudeButton 
+  client:load
+  text="Hover Me!"
+  animation="rock"
+  hover={true}
+  depth={2}
+/>
+
+### Gradient Button
+<ExtrudeButton 
+  client:load
+  text="Gradient"
+  gradient={{
+    from: "#FF0080",
+    to: "#7928CA",
+    angle: 45
+  }}
+/>
+
+## Props
+
+### Core Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `text` | `string` | — | The text content of the button |
+| `onClick` | `() => void` | — | Function called when button is clicked |
+| `disabled` | `boolean` | `false` | Whether the button is disabled |
+
+### Styling Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `color` | `string` | `"#ffffff"` | Primary color of the button |
+| `size` | `'small' \| 'medium' \| 'large' \| 'xlarge'` | `"medium"` | Size of the button |
+| `shape` | `'rounded' \| 'square' \| 'pill'` | `"rounded"` | Shape of the button |
+| `font` | `string` | — | Custom font family |
+| `textColor` | `string` | `"#000000"` | Color of the button text |
+| `opacity` | `number` | `1` | Overall opacity of the button |
+
+### 3D Properties
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `depth` | `number` | `1` | Depth of the 3D effect |
+| `hover` | `boolean` | `false` | Enable hover effects |
+
+### Material Properties
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `metalness` | `number` | `0` | Metallic material effect (0-1) |
+| `roughness` | `number` | `0.5` | Surface roughness (0-1) |
+| `clearcoat` | `number` | `0` | Clear coat effect (0-1) |
+| `clearcoatRoughness` | `number` | `0` | Clear coat roughness (0-1) |
+
+### Animation Properties
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `animation` | `'spin' \| 'flip' \| 'rock' \| 'none'` | `"none"` | Type of animation |
+
+### Shadow Properties
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `shadowColor` | `string` | `"#000000"` | Color of the shadow |
+| `shadowOpacity` | `number` | `0.2` | Opacity of the shadow (0-1) |
+
+### Gradient Properties
+
+| Prop | Type | Description |
+|------|------|-------------|
+| `gradient` | `{ from: string; to: string; angle?: number }` | Configure a gradient background |
+
+### Loading State
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `fallback` | `React.ReactNode` | — | Content to show while loading |
+| `loadingAnimation` | `'spinner' \| 'pulse' \| 'dots' \| 'none'` | `"spinner"` | Type of loading animation |
+| `loadingColor` | `string` | — | Color of the loading indicator |
+
+## Best Practices
+
+1. **Accessibility**: Always provide meaningful text content for screen readers.
+2. **Performance**: Use the `fallback` prop for better loading states in slower connections.
+3. **Responsiveness**: Consider using different sizes for different screen sizes.
+
+## Code From Examples:
+
+### Loading Button
+```jsx
+<ExtrudeButton 
+  text="Loading..."
+  loadingAnimation="spinner"
+  loadingColor="#4CAF50"
+/>
+```
+
+### Metallic Button
+```jsx
+<ExtrudeButton 
+  text="Metallic"
+  metalness={0.8}
+  roughness={0.2}
+  color="#silver"
+/>
+```
+
+### Gradient Button
+```jsx
+<ExtrudeButton 
+  text="Gradient"
+  gradient={{
+    from: "#FF0080",
+    to: "#7928CA",
+    angle: 45
+  }}
+/>
+```
+
+
+

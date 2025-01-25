@@ -1,0 +1,71 @@
+---
+title: Installation/Getting Started
+description: Installation guide for ExtrudeUI
+---
+import { Steps } from '@astrojs/starlight/components';
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import { ExtrudeImage } from 'extrude-ui';
+
+
+<Steps>
+
+1. Install ExtrudeUI using your preferred package manager:
+
+
+   <Tabs>
+     <TabItem label="npm">
+     ```bash
+     npm install extrude-ui
+     ```
+     </TabItem>
+     <TabItem label="pnpm">
+     ```bash
+     pnpm add extrude-ui
+     ```
+     </TabItem>
+     <TabItem label="yarn">
+     ```bash
+     yarn add extrude-ui
+     ```
+     </TabItem>
+   </Tabs>
+
+2. You can now import any ExtrudeUI components you need:
+
+
+   ```js
+   import { ExtrudeImage } from 'extrude-ui';
+   ```
+
+3. Use the components in your React application:
+
+   ```js
+    <ExtrudeImage src="https://example.com/image.jpg" 
+        width={1.7}
+        height={1.2}
+        width={1.7}
+        height={1.2}
+        floatIntensity={1.5}
+        wobble={true}
+        wobbleSpeed={1}
+        wobbleStrength={.6}
+    />
+   ```
+4. Result:
+    <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: '40vh'}}>
+        <ExtrudeImage 
+        client:load
+        src="https://pgtgy4em2f.ufs.sh/f/oMW3imFO9N6PdbCsIqLO4CcZVR3bHSPxKQw6tnGmNfksU0FX"
+        width={1.7}
+        height={1.2}
+        floatIntensity={1.5}
+        wobble={true}
+        wobbleSpeed={1}
+        wobbleStrength={.6}
+        />
+    </div>
+
+
+
+</Steps>
+
