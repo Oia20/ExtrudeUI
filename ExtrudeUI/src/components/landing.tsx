@@ -151,7 +151,7 @@ export default function Playground() {
                         <a href="#showcase" className="text-indigo-200 hover:text-white hover:bg-indigo-950/30 px-4 py-2 rounded-lg transition-all duration-200">
                         Showcase
                         </a>
-                        <a href="#" className="text-indigo-200 hover:text-white hover:bg-indigo-950/30 px-4 py-2 rounded-lg transition-all duration-200">
+                        <a href="https://docs.extrudeui.com" className="text-indigo-200 hover:text-white hover:bg-indigo-950/30 px-4 py-2 rounded-lg transition-all duration-200">
                             Documentation
                         </a>
                         <a 
@@ -174,7 +174,7 @@ export default function Playground() {
                             <a href="#showcase" className="text-indigo-200 hover:text-white hover:bg-indigo-950/30 px-4 py-3 rounded-lg transition-all duration-200">
                                 Showcase
                             </a>
-                            <a href="#" className="text-indigo-200 hover:text-white hover:bg-indigo-950/30 px-4 py-3 rounded-lg transition-all duration-200">
+                            <a href="https://docs.extrudeui.com" className="text-indigo-200 hover:text-white hover:bg-indigo-950/30 px-4 py-3 rounded-lg transition-all duration-200">
                                 Documentation
                             </a>
                             <a 
@@ -221,7 +221,7 @@ export default function Playground() {
                     </span>
                 </h1>
                 <p className="text-lg md:text-xl text-indigo-100 mb-8 p-8 md:mb-10 max-w-[42rem] mx-auto">
-                    ExtrudeUI is the Open-Source React component library that seamlessly brings the third dimension to your 2D web apps. 
+                    ExtrudeUI is the Open-Source React component library that brings the third dimension to your 2D web apps. 
                 </p>
 
 
@@ -269,7 +269,7 @@ export default function Playground() {
                             </button>
                         </div>
                         <a 
-                            href="#" 
+                            href="https://docs.extrudeui.com" 
                             className="text-indigo-300 hover:text-indigo-200 transition-colors text-center"
                         >
                             View the documentation to get started →
@@ -387,7 +387,7 @@ export default function Playground() {
                         <div>
                             <h3 className="text-white font-semibold mb-4">Resources</h3>
                             <ul className="space-y-2 text-indigo-200">
-                                <li><a href="#" className="hover:text-white transition-colors">Documentation</a></li>
+                                <li><a href="https://docs.extrudeui.com" className="hover:text-white transition-colors">Documentation</a></li>
                                 <li><a href="#showcase" className="hover:text-white transition-colors">Examples</a></li>
                             </ul>
                         </div>
@@ -402,8 +402,6 @@ export default function Playground() {
 
                             <h3 className="text-white font-semibold mb-4">Legal</h3>
                             <ul className="space-y-2 text-indigo-200">
-                                <li><a href="#" className="hover:text-white transition-colors">Privacy Policy</a></li>
-                                <li><a href="#" className="hover:text-white transition-colors">Terms of Service</a></li>
                                 <li><a href="https://github.com/Oia20/ExtrudeUI/blob/main/LICENSE" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">License</a></li>
                             </ul>
                         </div>

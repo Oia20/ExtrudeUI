@@ -10,6 +10,7 @@ export default defineConfig({
         social: {
             github: 'https://github.com/Oia20/ExtrudeUI',
         },
+        favicon: './src/assets/ExtrudeFavi.png',
         sidebar: [
             {
                 label: 'Introduction',
