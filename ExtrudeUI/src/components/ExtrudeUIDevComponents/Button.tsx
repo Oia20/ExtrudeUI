@@ -29,8 +29,6 @@ interface ExtrudeButtonProps {
   // Material properties
   metalness?: number;
   roughness?: number;
-  clearcoat?: number;
-  clearcoatRoughness?: number;
 
   // Animation properties
   animation?: 'spin' | 'flip' | 'rock' | 'none';
@@ -65,8 +63,6 @@ const ExtrudeButtonInner = ({
   opacity = 1,
   metalness = 0.3,
   roughness = 0.2,
-  clearcoat = 1,
-  clearcoatRoughness = 0.1,
   animation = 'spin',
   font = 'https://db.onlinewebfonts.com/t/1dc8ecd8056a5ea7aa7de1db42b5b639.ttf',
   shadowColor = 'red',
@@ -238,8 +234,6 @@ const ExtrudeButtonInner = ({
               transparent={opacity !== 1}
               metalness={metalness}
               roughness={roughness}
-              clearcoat={clearcoat}
-              clearcoatRoughness={clearcoatRoughness}
               envMapIntensity={1.5}
             />
           </RoundedBox>
