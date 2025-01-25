@@ -1,0 +1,159 @@
+---
+title: Image
+description: A 3D-enhanced image component with interactive effects and animations.
+---
+
+import { ExtrudeImage } from 'extrude-ui';
+
+<ExtrudeImage 
+  client:load
+  src="https://pgtgy4em2f.ufs.sh/f/oMW3imFO9N6PcOOHfvbMOvsrnRhEwqLJa7FIe6Gtj0Cg5WlT"
+  alt="ExtrudeUI Logo"
+  animation="float"
+  scale={2}
+  wobble={true}
+  wobbleSpeed={1}
+  wobbleStrength={1}
+/>
+
+
+
+
+
+## Overview
+
+Extrude Image transforms regular images into interactive 3D elements with customizable depth, frames, animations, and effects.
+
+## Usage
+
+```jsx
+import { ExtrudeImage } from 'extrude-ui';
+
+function MyComponent() {
+  return (
+    <ExtrudeImage 
+        src="/path/to/image.jpg"
+        alt="Description"
+        animation="float"
+        scale={2}
+        wobble={true}
+        wobbleSpeed={1}
+        wobbleStrength={1}
+    />
+  );
+}
+```
+
+## Props
+
+### Core Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `src` | `string` | — | URL of the image |
+| `alt` | `string` | — | Alternative text for accessibility |
+| `onClick` | `() => void` | — | Function called when image is clicked |
+
+### Sizing and Positioning
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `width` | `number` | — | Width of the image |
+| `height` | `number` | — | Height of the image |
+| `scale` | `number` | `1` | Scale factor of the image |
+
+### 3D Effects
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `depth` | `number` | `10` | Depth of the 3D effect |
+| `floatIntensity` | `number` | `1` | Intensity of floating animation |
+| `floatSpeed` | `number` | `1` | Speed of floating animation |
+
+### Material Properties
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `opacity` | `number` | `1` | Opacity of the image |
+| `transparent` | `boolean` | `false` | Enable transparency |
+
+### Frame Properties
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `frame` | `boolean` | `false` | Enable frame around image |
+| `frameColor` | `string` | `"#000000"` | Color of the frame |
+| `frameWidth` | `number` | `10` | Width of the frame |
+| `frameStyle` | `'metal' \| 'glass' \| 'matte' \| 'glossy'` | `"metal"` | Style of the frame |
+
+### Animation and Interaction
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `animation` | `'float' \| 'none'` | `"none"` | Type of animation |
+| `wobble` | `boolean` | `false` | Enable wobble effect |
+| `wobbleSpeed` | `number` | `1` | Speed of wobble animation |
+| `wobbleStrength` | `number` | `1` | Intensity of wobble effect |
+
+### Shadow Properties
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `shadowColor` | `string` | `"#000000"` | Color of the shadow |
+| `shadowOpacity` | `number` | `0.2` | Opacity of the shadow (0-1) |
+
+### Loading State
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `fallback` | `React.ReactNode` | — | Custom loading component |
+| `loadingAnimation` | `'spinner' \| 'pulse' \| 'dots'` | `"spinner"` | Type of loading animation |
+| `loadingColor` | `string` | — | Color of the loading indicator |
+
+## Example:
+
+### Framed Image
+
+<div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: '50vh'}}>
+<ExtrudeImage 
+  client:load
+  width={150}
+  height={100}
+  src="https://pgtgy4em2f.ufs.sh/f/oMW3imFO9N6PoLPPD4FO9N6PiZVlh2Atm0fQTE7xwbCj3Yya"
+  alt="Landscape photo"
+  frame={true}
+  frameStyle="matte"
+  frameWidth={3}
+  animation="float"
+  floatIntensity={100}
+  floatSpeed={2}
+  scale={.01}
+  frameColor="#a1953a"
+/>
+
+
+
+
+</div>
+
+
+
+
+
+
+```jsx
+<ExtrudeImage 
+  width={150}
+  height={100}
+  src="path/to/image.png"
+  alt="Landscape photo"
+  frame={true}
+  frameStyle="matte"
+  frameWidth={3}
+  animation="float"
+  floatIntensity={100}
+  floatSpeed={2}
+  scale={.01}
+  frameColor="#a1953a"
+/>
+```

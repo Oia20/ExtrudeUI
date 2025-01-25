@@ -1,0 +1,153 @@
+---
+    title: Custom Models
+    description: Provide your own 3D models to use with ExtrudeUI.
+
+
+---
+
+import { ExtrudeModel } from 'extrude-ui';
+
+<div style={{ height: '40vh' }}>
+<ExtrudeModel 
+  client:load
+  src="https://pgtgy4em2f.ufs.sh/f/oMW3imFO9N6Pex47b7myWGyn9AX3Ze2SvJUBFqRcjLDNiT5C"
+  animationSpeed={0.3}
+  enableOrbitControls={true}
+  animation="spinHorizontal"
+  rotation={[.1, 0, 0]}
+  scale={2}
+  cameraDistance={9}
+  roughness={1}
+
+  orbitControlsOptions={{
+    enableZoom: false,
+    enableRotate: true,
+    enablePan: false,
+    minPolarAngle: -3,
+    maxPolarAngle: 1,
+  }}
+/>
+</div>
+
+
+
+
+# Overview
+
+BYOM (Bring Your Own Model)! This feature is the reason I built ExtrudeUI. Plug in your own 3D model, and it will be displayed in 3D.
+
+## Important Considerations
+
+
+
+1. **File Format Requirements**
+   - Models must be in `.glb` format
+
+2. **Model Hosting & Performance**
+   - Consider file size for optimal loading performance
+   - We recommend hosting models externally
+   - [Uploadthing](https://uploadthing.com/) is a great option with no egress fees
+   - Pass the hosted model URL to the `src` prop
+3. **The component's "Canvas" takes the size of it's parent container.**
+
+:::tip[Optimization]
+Keep your model files as small as possible while maintaining necessary quality. Consider using tools like [glb babylonpress](https://glb.babylonpress.org/) for optimization.
+:::
+
+
+
+## Usage
+
+```jsx
+import { ExtrudeModel } from 'extrude-ui';
+
+function MyComponent() {
+  return (
+    <ExtrudeModel 
+      src="model.glb"
+      animation="spinHorizontal"
+      animationSpeed={0.5}
+      enableOrbitControls={true}
+      orbitControlsOptions={{
+        enableZoom: false,
+        enableRotate: true,
+        enablePan: false,
+        minPolarAngle: -3,
+        maxPolarAngle: 1,
+    }}/>
+  );
+}
+```
+
+## Props
+
+### Core Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `src` | `string` | — | URL to the GLB model |
+| `alt` | `string` | — | Alternative text for accessibility |
+| `onClick` | `() => void` | — | Function called when model is clicked |
+
+### Sizing and Positioning
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `scale` | `number` | `1` | Scale factor of the model |
+| `position` | `[number, number, number]` | `[0, 0, 0]` | [x, y, z] position coordinates |
+| `rotation` | `[number, number, number]` | `[0, 0, 0]` | [x, y, z] rotation angle of the model |
+| `cameraDistance` | `number` | `5` | Distance of camera from the model |
+
+### Animation and Interaction
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `animation` | `'float' \| 'spinHorizontal' \| 'spinVertical' \| 'bounce' \| 'none'` | `'none'` | Type of animation |
+| `autoRotate` | `boolean` | `false` | Enable automatic rotation |
+| `rotateSpeed` | `number` | `1` | Speed of rotation |
+| `animationSpeed` | `number` | `1` | Speed of animation |
+| `floatIntensity` | `number` | `1` | Intensity of floating animation |
+| `floatSpeed` | `number` | `1` | Speed of floating animation |
+
+### Material Properties
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `metalness` | `number` | `0` | Metallic material effect  |
+| `roughness` | `number` | `0.5` | Surface roughness  |
+
+### Shadow Properties
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `shadowColor` | `string` | `"#000000"` | Color of the shadow |
+| `shadowOpacity` | `number` | `0.2` | Opacity of the shadow (0-1) |
+
+### Orbit Controls
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `enableOrbitControls` | `boolean` | `false` | Enable orbit controls for model interaction |
+| `orbitControlsOptions` | `object` | — | Configuration options for orbit controls |
+
+#### Orbit Controls Options
+
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| `enableZoom` | `boolean` | `true` | Allow zooming |
+| `enableRotate` | `boolean` | `true` | Allow rotation |
+| `enablePan` | `boolean` | `true` | Allow panning |
+| `minDistance` | `number` | — | Minimum zoom distance |
+| `maxDistance` | `number` | — | Maximum zoom distance |
+| `minPolarAngle` | `number` | — | Minimum vertical rotation angle |
+| `maxPolarAngle` | `number` | — | Maximum vertical rotation angle |
+
+
+### Loading State
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `fallback` | `React.ReactNode` | — | Custom loading component |
+| `loadingAnimation` | `'spinner' \| 'pulse' \| 'dots' \| 'none'` | `'spinner'` | Type of default loading animation |
+| `loadingColor` | `string` | — | Color of the loading indicator |
+

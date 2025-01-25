@@ -42,10 +42,8 @@ interface ExtrudeModelProps {
   loadingAnimation?: 'spinner' | 'pulse' | 'dots' | 'none';
   loadingColor?: string;
   
-  // New prop
   cameraDistance?: number;
   
-  // New orbital control props
   enableOrbitControls?: boolean;
   orbitControlsOptions?: {
     enableZoom?: boolean;
@@ -258,6 +256,7 @@ export const ExtrudeModel = ({
     <div
       ref={containerRef}
       className={props.className}
+      aria-label={props.alt}
       style={{
         position: 'relative',
         width: '100%',

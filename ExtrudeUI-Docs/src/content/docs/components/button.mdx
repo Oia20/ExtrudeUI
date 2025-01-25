@@ -1,34 +1,28 @@
 ---
-title: ExtrudeButton
+title: Button
 description: A customizable 3D button component with interactive effects and animations.
 ---
 
 import { ExtrudeButton } from 'extrude-ui';
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
+<ExtrudeButton
+  client:load
+  text="Nice Button!"
+  size="medium"
+  color="purple"
+  depth={1.5}
+  hover={true}
+  metalness={1}
+  roughness={.1}
+  transparent={true}
+/>
+
+
+
 ## Overview
 
-ExtrudeButton is a highly customizable 3D button component that brings depth and interactivity to your user interface. It supports various animations, materials, and styling options.
-
-## Installation
-
-<Tabs>
-  <TabItem label="npm">
-  ```bash
-  npm install extrude-ui
-  ```
-  </TabItem>
-  <TabItem label="pnpm">
-  ```bash
-  pnpm add extrude-ui
-  ```
-  </TabItem>
-  <TabItem label="yarn">
-  ```bash
-  yarn add extrude-ui
-  ```
-  </TabItem>
-</Tabs>
+Extrude Button is a highly customizable 3D button component that brings depth and interactivity to your user interface. It supports various animations, materials, and styling options.
 
 ## Usage
 
