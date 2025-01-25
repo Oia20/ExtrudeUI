@@ -370,10 +370,15 @@ export const ExtrudeButton = (props: ExtrudeButtonProps) => {
       </style>
       <Suspense fallback={props.fallback || <LoadingComponent />}>
         <Canvas 
+
+          aria-label={props.text}
+          aria-disabled={props.disabled}
           camera={{ 
             position: [0, 0, cameraPosition], 
             fov: fov,
           }}
+
+
           style={{ 
             background: 'transparent',
             pointerEvents: 'auto',

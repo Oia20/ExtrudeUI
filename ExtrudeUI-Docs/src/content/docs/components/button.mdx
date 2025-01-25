@@ -46,35 +46,46 @@ function MyComponent() {
     />
   );
 }
+
 ```
 
 ## Examples:
 
-### Basic Button
+### Shiny Rounded Button
 <ExtrudeButton 
   client:load
-  text="Basic Button"
+  text="Click Me!"
   size="medium"
+  color="#4CAF50"
+  depth={3}
+  animation="flip"
+  metalness={1}
+  roughness={.1}
 />
 
-### Animated Button
+
+### Pill Button
 <ExtrudeButton 
   client:load
-  text="Hover Me!"
-  animation="rock"
-  hover={true}
-  depth={2}
+  text="Click Me!"
+  shape="pill"
+  animation="spin"
+  depth={5}
+  opacity={0.5}
 />
+
 
 ### Gradient Button
 <ExtrudeButton 
   client:load
   text="Gradient"
+  animation="rock"
   gradient={{
-    from: "#FF0080",
-    to: "#7928CA",
-    angle: 45
+    from: "#7f2dfd",
+    to: "#f203ff",
+    angle: 18
   }}
+
 />
 
 ## Props
@@ -102,23 +113,20 @@ function MyComponent() {
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `depth` | `number` | `1` | Depth of the 3D effect |
-| `hover` | `boolean` | `false` | Enable hover effects |
+| `depth` | `number` | `1` | Depth of the button |
 
 ### Material Properties
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `metalness` | `number` | `0` | Metallic material effect (0-1) |
-| `roughness` | `number` | `0.5` | Surface roughness (0-1) |
-| `clearcoat` | `number` | `0` | Clear coat effect (0-1) |
-| `clearcoatRoughness` | `number` | `0` | Clear coat roughness (0-1) |
+| `metalness` | `number` | `0` | Metallic material effect |
+| `roughness` | `number` | `0.5` | Surface roughness |
 
 ### Animation Properties
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `animation` | `'spin' \| 'flip' \| 'rock' \| 'none'` | `"none"` | Type of animation |
+| `animation` | `'spin' \| 'flip' \| 'rock' \| 'none'` | `"spin"` | onClick animation |
 
 ### Shadow Properties
 
@@ -137,34 +145,35 @@ function MyComponent() {
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `fallback` | `React.ReactNode` | — | Content to show while loading |
+| `fallback` | `React.ReactNode` | — | Overrides the default loading animation.|
 | `loadingAnimation` | `'spinner' \| 'pulse' \| 'dots' \| 'none'` | `"spinner"` | Type of loading animation |
 | `loadingColor` | `string` | — | Color of the loading indicator |
 
-## Best Practices
-
-1. **Accessibility**: Always provide meaningful text content for screen readers.
-2. **Performance**: Use the `fallback` prop for better loading states in slower connections.
-3. **Responsiveness**: Consider using different sizes for different screen sizes.
 
 ## Code From Examples:
 
-### Loading Button
+### Shiny Rounded Button
 ```jsx
 <ExtrudeButton 
-  text="Loading..."
-  loadingAnimation="spinner"
-  loadingColor="#4CAF50"
+  text="Click Me!"
+  size="medium"
+  color="#4CAF50"
+  depth={3}
+  animation="flip"
+  metalness={1}
+  roughness={.1}
 />
 ```
 
-### Metallic Button
+### Pill Button
 ```jsx
 <ExtrudeButton 
-  text="Metallic"
-  metalness={0.8}
-  roughness={0.2}
-  color="#silver"
+  text="Click Me!"
+  shape="pill"
+  animation="spin"
+  depth={5}
+  opacity={0.5}
+
 />
 ```
 
@@ -172,10 +181,11 @@ function MyComponent() {
 ```jsx
 <ExtrudeButton 
   text="Gradient"
+  animation="rock"
   gradient={{
-    from: "#FF0080",
-    to: "#7928CA",
-    angle: 45
+    from: "#7f2dfd",
+    to: "#f203ff",
+    angle: 18
   }}
 />
 ```
