@@ -13,13 +13,13 @@
 
 <h2>Project Stucture:</h2>
 
-**ExtrudeUI's repo is split into 3 files**
+**ExtrudeUI's repo is split into 3 folders**
 
-`ExtrudeUI` holds the landing page and local versions of the components for testing
+- `ExtrudeUI` holds the landing page and local versions of the components for testing
 
-`ExtrudeUI-docs` holds ExtrudeUI's docs
+- `ExtrudeUI-docs` holds ExtrudeUI's docs
 
-`ExtrudeUI-Components` holds our NPM package for publishing
+- `ExtrudeUIComponents` holds our NPM package for publishing
 
 ---
 
