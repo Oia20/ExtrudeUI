@@ -13,12 +13,16 @@ export default defineConfig({
         favicon: './src/assets/ExtrudeFavi.png',
         sidebar: [
             {
+                label: 'ExtrudeUI Landing Page',
+                link: 'https://extrudeui.com',
+            },
+            {
                 label: 'Introduction',
-                link: '/',
+                link: '/introduction',
             },
             {
                 label: 'Installation/Getting Started',
-				link: '/installation',
+                link: '/installation',
             },
             {
                 label: 'Components',
