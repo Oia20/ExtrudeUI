@@ -11,6 +11,16 @@
 
 <p>ExtrudeUI is an open source React component library that makes it easy to add 3D elements to your web applications. The components aren’t meant to be placed inside of existing 3D scenes, but rather to be placed inside standard 2D websites to add an aspect of depth and interactivity.</p>
 
+<h2>Project Stucture:</h2>
+
+**ExtrudeUI's repo is split into 3 files**
+
+`ExtrudeUI` holds the landing page and local versions of the components for testing
+
+`ExtrudeUI-docs` holds ExtrudeUI's docs
+
+`ExtrudeUI-Components` holds our NPM package for publishing
+
 ---
 
 <h2>📄 Docs</h2> <a href="https://docs.extrudeui.com">Check out the official ExtrudeUI docs</a>
